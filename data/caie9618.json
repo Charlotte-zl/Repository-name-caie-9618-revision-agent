@@ -1,0 +1,180 @@
+{
+  "app": {
+    "title": "CAIE 9618 Computer Science Revision Agent",
+    "subtitle": "面向中文学习者的可视化复习、快速测验和 mark scheme 风格反馈。"
+  },
+  "topics": [
+    {
+      "id": "processor-fundamentals",
+      "title": "Processor Fundamentals",
+      "titleChinese": "处理器基础",
+      "subtopic": "Registers and Fetch-Execute Cycle",
+      "subtopicChinese": "寄存器与取指-执行周期",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/processor-fundamentals",
+      "summary": {
+        "chinese": "冯诺依曼模型使用 stored program concept（存储程序概念）。CPU 会不断重复 fetch、decode 和 execute instructions，也就是取指、解码和执行指令。",
+        "english": "The Von Neumann model uses the stored program concept. The processor repeatedly fetches, decodes and executes instructions."
+      },
+      "keyTerms": [
+        {
+          "term": "Register",
+          "abbreviation": "",
+          "chineseTerm": "寄存器",
+          "chineseExplanation": "Register（寄存器）是 CPU 内部的小型高速存储单元，用于临时存储数据、指令或地址。",
+          "examWording": "A register is a small, fast memory location inside the processor used to temporarily store data, instructions or addresses."
+        },
+        {
+          "term": "Program Counter",
+          "abbreviation": "PC",
+          "chineseTerm": "程序计数器",
+          "chineseExplanation": "PC（Program Counter，程序计数器）用于存储下一条将要被取出的指令地址。",
+          "examWording": "The Program Counter stores the address of the next instruction to be fetched."
+        },
+        {
+          "term": "Memory Address Register",
+          "abbreviation": "MAR",
+          "chineseTerm": "内存地址寄存器",
+          "chineseExplanation": "MAR（Memory Address Register，内存地址寄存器）用于存储当前要读取或写入的内存地址。",
+          "examWording": "The Memory Address Register stores the address of the memory location currently being read from or written to."
+        },
+        {
+          "term": "Memory Data Register",
+          "abbreviation": "MDR",
+          "chineseTerm": "内存数据寄存器",
+          "chineseExplanation": "MDR（Memory Data Register，内存数据寄存器）用于存储刚从内存读出的数据或指令，也可以存储即将写入内存的数据。",
+          "examWording": "The Memory Data Register stores data that has just been read from memory or data that is about to be written to memory."
+        },
+        {
+          "term": "Current Instruction Register",
+          "abbreviation": "CIR",
+          "chineseTerm": "当前指令寄存器",
+          "chineseExplanation": "CIR（Current Instruction Register，当前指令寄存器）用于存储当前正在被解码和执行的指令。",
+          "examWording": "The Current Instruction Register stores the current instruction being decoded and executed."
+        },
+        {
+          "term": "Control Unit",
+          "abbreviation": "CU",
+          "chineseTerm": "控制单元",
+          "chineseExplanation": "CU（Control Unit，控制单元）负责解码指令，并控制处理器中各部件的运行。",
+          "examWording": "The Control Unit decodes instructions and controls the operation of the processor."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "PC",
+          "description": "下一条指令地址 / next instruction address"
+        },
+        {
+          "label": "MAR",
+          "description": "内存地址 / memory address"
+        },
+        {
+          "label": "Memory",
+          "description": "取出指令 / instruction is fetched"
+        },
+        {
+          "label": "MDR",
+          "description": "取出的数据或指令 / fetched data or instruction"
+        },
+        {
+          "label": "CIR",
+          "description": "当前指令 / current instruction"
+        },
+        {
+          "label": "Control Unit",
+          "description": "解码 / decode"
+        },
+        {
+          "label": "Execute",
+          "description": "执行指令 / instruction is executed"
+        }
+      ],
+      "commonMistakes": [
+        "MAR 存储的是 address（地址），不是 data（数据）。",
+        "MDR 存储的是 data 或 instruction（数据或指令），不是 address（地址）。",
+        "负责 decode instructions（解码指令）的是 Control Unit，不是 ALU。",
+        "取出的 instruction 会先进入 MDR，然后复制到 CIR。",
+        "Program Counter 会在周期中 increment（自增），准备下一条指令。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "哪个寄存器存储下一条将要被取出的指令地址？",
+          "question": "Which register stores the address of the next instruction to be fetched?",
+          "options": ["MAR", "MDR", "PC", "CIR"],
+          "answer": "PC",
+          "explanationChinese": "PC 是 Program Counter，专门保存下一条指令的地址。看到 next instruction address 时，优先想到 PC。",
+          "explanation": "The Program Counter stores the address of the next instruction to be fetched."
+        },
+        {
+          "questionChinese": "哪个寄存器存储当前正在访问的内存位置地址？",
+          "question": "Which register stores the address of the memory location currently being accessed?",
+          "options": ["MAR", "MDR", "CIR", "SR"],
+          "answer": "MAR",
+          "explanationChinese": "MAR 中的 A 是 Address。它保存内存地址，而不是从内存中取出的数据。",
+          "explanation": "The Memory Address Register stores the address of the memory location being accessed."
+        },
+        {
+          "questionChinese": "判断正误：ALU 负责解码指令。",
+          "question": "True or False: The ALU decodes instructions.",
+          "options": ["True", "False"],
+          "answer": "False",
+          "explanationChinese": "错误。Control Unit 负责 decode instructions；ALU 主要负责 arithmetic and logical operations。",
+          "explanation": "The Control Unit decodes instructions. The ALU performs arithmetic and logical operations."
+        }
+      ],
+      "practice": {
+        "hintChinese": "题目要求你描述 fetch stage 中 MAR 和 MDR 的作用。答题时要分别说明：MAR 装什么、地址从哪里来、MDR 装什么、MDR 的内容下一步去哪里。",
+        "question": "Describe the role of the MAR and MDR during the fetch stage of the fetch-execute cycle. [4]",
+        "markSchemeChinese": [
+          "1 分：说明 MAR stores the address，即 MAR 存储要访问的内存地址。",
+          "1 分：说明这个 address may come from the Program Counter，即地址可能来自 PC。",
+          "1 分：说明 MDR stores the data or instruction fetched from memory，即 MDR 存储从内存取出的数据或指令。",
+          "1 分：说明 contents of the MDR are copied to the CIR，即 MDR 中的内容会复制到 CIR。"
+        ],
+        "markScheme": [
+          "1 mark: MAR stores the address of the memory location to be accessed.",
+          "1 mark: The address may come from the Program Counter.",
+          "1 mark: MDR stores the data or instruction fetched from memory.",
+          "1 mark: The contents of the MDR are copied to the CIR."
+        ],
+        "mockResult": {
+          "markAwarded": "2 / 4",
+          "awarded": [
+            "1 分：你正确写到 MAR stores the memory address。",
+            "1 分：你正确写到 MDR stores data fetched from memory。"
+          ],
+          "notAwarded": [
+            "未得分：你没有说明 address may come from the Program Counter。",
+            "未得分：你没有说明 contents of the MDR are copied to the CIR。"
+          ],
+          "commonMistake": "注意区分：MAR 存储 address；MDR 存储 data 或 instruction。不要把两者写反。",
+          "modelAnswerChinese": "在 fetch stage 中，下一条指令的地址会从 Program Counter 复制到 MAR。MAR 保存要访问的内存地址。主存根据这个地址取出指令，并把取出的指令放入 MDR。随后 MDR 中的内容会复制到 CIR。",
+          "modelAnswer": "During the fetch stage, the address of the next instruction is copied from the Program Counter to the MAR. The MAR holds the memory address to be accessed. The instruction at this address is fetched from memory and stored in the MDR. The contents of the MDR are then copied to the CIR."
+        }
+      }
+    },
+    {
+      "id": "data-representation",
+      "title": "Data Representation",
+      "titleChinese": "数据表示",
+      "status": "Coming soon",
+      "statusChinese": "即将推出"
+    },
+    {
+      "id": "logic-gates",
+      "title": "Logic Gates",
+      "titleChinese": "逻辑门",
+      "status": "Coming soon",
+      "statusChinese": "即将推出"
+    },
+    {
+      "id": "algorithms",
+      "title": "Algorithms",
+      "titleChinese": "算法",
+      "status": "Coming soon",
+      "statusChinese": "即将推出"
+    }
+  ]
+}

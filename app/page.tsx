@@ -1,65 +1,69 @@
+import Link from "next/link";
 import Image from "next/image";
+import course from "@/data/caie9618.json";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-slate-950 text-white">
+      <section className="mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-6 py-12 lg:grid-cols-[1fr_420px]">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-emerald-300">
+            CAIE 9618 / A-Level Computer Science 中文复习助手
           </p>
+          <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">
+            {course.app.title}
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+            {course.app.subtitle}
+          </p>
+          <p className="mt-3 max-w-2xl text-base leading-7 text-slate-400">
+            从中文理解出发，保留英文技术术语和考场表达，帮助你把概念转化成
+            mark scheme 能给分的答案。
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              className="rounded-md bg-emerald-400 px-6 py-3 text-center text-sm font-semibold text-slate-950 transition hover:bg-emerald-300"
+              href="/topics"
+            >
+              开始复习 / Start Revision
+            </Link>
+            <Link
+              className="rounded-md border border-white/20 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-emerald-300 hover:text-emerald-200"
+              href="/revision/processor-fundamentals"
+            >
+              打开当前主题 / Open topic
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+
+        <div className="rounded-lg border border-white/10 bg-white/5 p-3 shadow-2xl shadow-black/30">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              alt="Computer science revision desk with notes and exam preparation materials"
+              className="object-cover"
+              fill
+              priority
+              sizes="(min-width: 1024px) 420px, 100vw"
+              src="/caie-revision-workspace.png"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <div className="grid gap-3 p-4">
+            <div className="rounded-md border border-white/10 bg-slate-900/80 p-4">
+              <p className="text-sm font-semibold text-emerald-200">
+                处理器基础 / Processor Fundamentals
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                寄存器、fetch-decode-execute、快速测验与模拟批改。
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center text-xs font-semibold text-slate-300">
+              <span className="rounded-md bg-white/10 px-2 py-2">PC</span>
+              <span className="rounded-md bg-white/10 px-2 py-2">MAR</span>
+              <span className="rounded-md bg-white/10 px-2 py-2">MDR</span>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
