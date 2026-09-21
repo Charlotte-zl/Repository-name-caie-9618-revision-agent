@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getAvailableTopics } from "@/lib/course";
 import course from "@/data/caie9618.json";
 
 export default function Home() {
+  const topics = getAvailableTopics();
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <section className="mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-6 py-12 lg:grid-cols-[1fr_420px]">
@@ -29,10 +32,22 @@ export default function Home() {
             </Link>
             <Link
               className="rounded-md border border-white/20 px-6 py-3 text-center text-sm font-semibold text-white transition hover:border-emerald-300 hover:text-emerald-200"
-              href="/revision/processor-fundamentals"
+              href="/progress"
             >
-              打开当前主题 / Open topic
+              学习记录 / My progress
             </Link>
+          </div>
+          <div className="mt-8 grid gap-2 sm:grid-cols-2">
+            {topics.slice(0, 4).map((topic) => (
+              <Link
+                className="rounded-md border border-white/10 bg-white/5 px-4 py-3 text-sm transition hover:border-emerald-300"
+                href={topic.href ?? `/revision/${topic.id}`}
+                key={topic.id}
+              >
+                <p className="font-semibold text-white">{topic.titleChinese}</p>
+                <p className="mt-1 text-xs text-slate-400">{topic.title}</p>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -50,16 +65,19 @@ export default function Home() {
           <div className="grid gap-3 p-4">
             <div className="rounded-md border border-white/10 bg-slate-900/80 p-4">
               <p className="text-sm font-semibold text-emerald-200">
-                处理器基础 / Processor Fundamentals
+                {topics.length} 个核心复习主题
               </p>
               <p className="mt-2 text-sm leading-6 text-slate-300">
-                寄存器、fetch-decode-execute、快速测验与模拟批改。
+                参考教材 20 章：双语讲解、交互学习、测验、自评与本地学习记录。
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-2 text-center text-xs font-semibold text-slate-300">
-              <span className="rounded-md bg-white/10 px-2 py-2">PC</span>
-              <span className="rounded-md bg-white/10 px-2 py-2">MAR</span>
-              <span className="rounded-md bg-white/10 px-2 py-2">MDR</span>
+            <div className="grid grid-cols-2 gap-2 text-center text-xs font-semibold text-slate-300">
+              <span className="rounded-md bg-white/10 px-2 py-2">Registers</span>
+              <span className="rounded-md bg-white/10 px-2 py-2">Binary</span>
+              <span className="rounded-md bg-white/10 px-2 py-2">
+                Logic gates
+              </span>
+              <span className="rounded-md bg-white/10 px-2 py-2">Search</span>
             </div>
           </div>
         </div>

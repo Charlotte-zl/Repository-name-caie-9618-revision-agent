@@ -13,6 +13,14 @@
       "status": "Available",
       "statusChinese": "可学习",
       "href": "/revision/processor-fundamentals",
+      "visual": "fetch-cycle",
+      "sectionTitles": {
+        "visual": "跟着 CPU 的数据流一步一步看 fetch-execute cycle",
+        "terms": "先记中文含义，再背英文得分句",
+        "overview": "静态流程：PC 到 Execute",
+        "quiz": "检查寄存器角色是否分清",
+        "practice": "用中文拆题，再写英文得分句"
+      },
       "summary": {
         "chinese": "冯诺依曼模型使用 stored program concept（存储程序概念）。CPU 会不断重复 fetch、decode 和 execute instructions，也就是取指、解码和执行指令。",
         "english": "The Von Neumann model uses the stored program concept. The processor repeatedly fetches, decodes and executes instructions."
@@ -102,7 +110,12 @@
         {
           "questionChinese": "哪个寄存器存储下一条将要被取出的指令地址？",
           "question": "Which register stores the address of the next instruction to be fetched?",
-          "options": ["MAR", "MDR", "PC", "CIR"],
+          "options": [
+            "MAR",
+            "MDR",
+            "PC",
+            "CIR"
+          ],
           "answer": "PC",
           "explanationChinese": "PC 是 Program Counter，专门保存下一条指令的地址。看到 next instruction address 时，优先想到 PC。",
           "explanation": "The Program Counter stores the address of the next instruction to be fetched."
@@ -110,7 +123,12 @@
         {
           "questionChinese": "哪个寄存器存储当前正在访问的内存位置地址？",
           "question": "Which register stores the address of the memory location currently being accessed?",
-          "options": ["MAR", "MDR", "CIR", "SR"],
+          "options": [
+            "MAR",
+            "MDR",
+            "CIR",
+            "SR"
+          ],
           "answer": "MAR",
           "explanationChinese": "MAR 中的 A 是 Address。它保存内存地址，而不是从内存中取出的数据。",
           "explanation": "The Memory Address Register stores the address of the memory location being accessed."
@@ -118,13 +136,17 @@
         {
           "questionChinese": "判断正误：ALU 负责解码指令。",
           "question": "True or False: The ALU decodes instructions.",
-          "options": ["True", "False"],
+          "options": [
+            "True",
+            "False"
+          ],
           "answer": "False",
           "explanationChinese": "错误。Control Unit 负责 decode instructions；ALU 主要负责 arithmetic and logical operations。",
           "explanation": "The Control Unit decodes instructions. The ALU performs arithmetic and logical operations."
         }
       ],
       "practice": {
+        "answerPlaceholder": "Write in English. Hint: say what MAR stores, where the address comes from, what MDR stores, and where the MDR contents go next.",
         "hintChinese": "题目要求你描述 fetch stage 中 MAR 和 MDR 的作用。答题时要分别说明：MAR 装什么、地址从哪里来、MDR 装什么、MDR 的内容下一步去哪里。",
         "question": "Describe the role of the MAR and MDR during the fetch stage of the fetch-execute cycle. [4]",
         "markSchemeChinese": [
@@ -139,42 +161,2307 @@
           "1 mark: MDR stores the data or instruction fetched from memory.",
           "1 mark: The contents of the MDR are copied to the CIR."
         ],
-        "mockResult": {
-          "markAwarded": "2 / 4",
-          "awarded": [
-            "1 分：你正确写到 MAR stores the memory address。",
-            "1 分：你正确写到 MDR stores data fetched from memory。"
-          ],
-          "notAwarded": [
-            "未得分：你没有说明 address may come from the Program Counter。",
-            "未得分：你没有说明 contents of the MDR are copied to the CIR。"
-          ],
-          "commonMistake": "注意区分：MAR 存储 address；MDR 存储 data 或 instruction。不要把两者写反。",
-          "modelAnswerChinese": "在 fetch stage 中，下一条指令的地址会从 Program Counter 复制到 MAR。MAR 保存要访问的内存地址。主存根据这个地址取出指令，并把取出的指令放入 MDR。随后 MDR 中的内容会复制到 CIR。",
-          "modelAnswer": "During the fetch stage, the address of the next instruction is copied from the Program Counter to the MAR. The MAR holds the memory address to be accessed. The instruction at this address is fetched from memory and stored in the MDR. The contents of the MDR are then copied to the CIR."
-        }
-      }
+        "modelAnswerChinese": "在 fetch stage 中，下一条指令的地址会从 Program Counter 复制到 MAR。MAR 保存要访问的内存地址。主存根据这个地址取出指令，并把取出的指令放入 MDR。随后 MDR 中的内容会复制到 CIR。",
+        "modelAnswer": "During the fetch stage, the address of the next instruction is copied from the Program Counter to the MAR. The MAR holds the memory address to be accessed. The instruction at this address is fetched from memory and stored in the MDR. The contents of the MDR are then copied to the CIR."
+      },
+      "source": {
+        "chapter": 4,
+        "section": "4.1",
+        "printedPage": 107,
+        "pdfPage": 123
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点"
     },
     {
       "id": "data-representation",
       "title": "Data Representation",
       "titleChinese": "数据表示",
-      "status": "Coming soon",
-      "statusChinese": "即将推出"
+      "subtopic": "Binary, denary and two's complement",
+      "subtopicChinese": "二进制、十进制与二进制补码",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/data-representation",
+      "visual": "binary-conversion",
+      "sectionTitles": {
+        "visual": "用权值把 denary 13 转成 binary 1101",
+        "terms": "先分清进制，再记住 two's complement 的考法",
+        "overview": "从 denary 到 binary，再到 signed 表示",
+        "quiz": "检查进制转换和 overflow 有没有写混",
+        "practice": "把转换步骤写成 mark scheme 能给分的英文句"
+      },
+      "summary": {
+        "chinese": "计算机用 binary（二进制）存储数据。Denary（十进制）是我们日常使用的数制。Two's complement（二进制补码）用来表示 signed integers（有符号整数）。转换时要按 place values（权值）逐步判断每一位是 1 还是 0。",
+        "english": "Computers store data in binary. Denary is the base-10 number system. Two's complement is used to represent signed integers."
+      },
+      "keyTerms": [
+        {
+          "term": "Binary",
+          "abbreviation": "",
+          "chineseTerm": "二进制",
+          "chineseExplanation": "Binary（二进制）只使用 0 和 1。每一位都是 2 的幂次权值，例如 8、4、2、1。",
+          "examWording": "Binary is a base-2 number system that uses only the digits 0 and 1."
+        },
+        {
+          "term": "Denary",
+          "abbreviation": "",
+          "chineseTerm": "十进制",
+          "chineseExplanation": "Denary（十进制）使用 0 到 9。考试里常要求 convert from denary to binary，或反过来。",
+          "examWording": "Denary is a base-10 number system that uses the digits 0 to 9."
+        },
+        {
+          "term": "Hexadecimal",
+          "abbreviation": "hex",
+          "chineseTerm": "十六进制",
+          "chineseExplanation": "Hexadecimal（十六进制）使用 0-9 和 A-F。它常用于缩短 binary 的写法，因为 4 位 binary 对应 1 位 hex。",
+          "examWording": "Hexadecimal is a base-16 number system. One hexadecimal digit represents four binary digits."
+        },
+        {
+          "term": "Two's complement",
+          "abbreviation": "",
+          "chineseTerm": "二进制补码",
+          "chineseExplanation": "Two's complement（二进制补码）用最高位作为 sign bit。正数与 unsigned 写法相同；负数先取反再加 1。",
+          "examWording": "Two's complement is a method of representing signed integers. The most significant bit is the sign bit."
+        },
+        {
+          "term": "Overflow",
+          "abbreviation": "",
+          "chineseTerm": "溢出",
+          "chineseExplanation": "Overflow（溢出）发生在运算结果无法用当前位数正确表示时，例如 8-bit 加法结果超出可表示范围。",
+          "examWording": "Overflow occurs when the result of a calculation is too large to be represented using the available number of bits."
+        },
+        {
+          "term": "Most significant bit",
+          "abbreviation": "MSB",
+          "chineseTerm": "最高有效位",
+          "chineseExplanation": "MSB（Most significant bit，最高有效位）是最左边的位。在 two's complement 中，MSB 为 1 表示负数。",
+          "examWording": "The most significant bit is the leftmost bit. In two's complement, an MSB of 1 indicates a negative number."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Denary",
+          "description": "日常十进制数 / base-10 value"
+        },
+        {
+          "label": "Place values",
+          "description": "权值 8 4 2 1 / powers of 2"
+        },
+        {
+          "label": "Binary bits",
+          "description": "每一位 1 或 0 / each bit 1 or 0"
+        },
+        {
+          "label": "Hex nibble",
+          "description": "4 bit 对应 1 hex / 4 bits = 1 hex digit"
+        },
+        {
+          "label": "Two's complement",
+          "description": "有符号整数 / signed integer"
+        }
+      ],
+      "commonMistakes": [
+        "Binary 的权值从右到左是 1、2、4、8，不要从左边开始当成 1。",
+        "Two's complement 的负数不是只把 MSB 改成 1，正确方法是 invert the bits then add 1。",
+        "Hex 一位对应 4 位 binary，不是对应 8 位。",
+        "Overflow 不是简单的“算错了”，而是 result cannot be represented with the available bits。",
+        "MSB = 1 在 two's complement 中表示 negative，不要写成 magnitude 更大。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "Denary 13 转换成 4-bit binary 是多少？",
+          "question": "What is denary 13 as a 4-bit binary number?",
+          "options": [
+            "1101",
+            "1011",
+            "1110",
+            "1001"
+          ],
+          "answer": "1101",
+          "explanationChinese": "权值 8+4+1=13，所以 bits 是 1 1 0 1。",
+          "explanation": "13 = 8 + 4 + 1, so the 4-bit binary value is 1101."
+        },
+        {
+          "questionChinese": "4 位 binary 对应几位 hexadecimal？",
+          "question": "How many hexadecimal digits represent 4 binary bits?",
+          "options": [
+            "1",
+            "2",
+            "4",
+            "8"
+          ],
+          "answer": "1",
+          "explanationChinese": "1 个 hex digit 正好对应 1 个 nibble，也就是 4 bits。",
+          "explanation": "One hexadecimal digit represents four binary bits."
+        },
+        {
+          "questionChinese": "判断正误：two's complement 中 MSB 为 1 表示正数。",
+          "question": "True or False: In two's complement, an MSB of 1 represents a positive number.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "answer": "False",
+          "explanationChinese": "错误。MSB 是 sign bit；1 表示 negative integer。",
+          "explanation": "The MSB is the sign bit. 1 indicates a negative number."
+        }
+      ],
+      "practice": {
+        "answerPlaceholder": "Write in English. Hint: mention place values, subtracting powers of 2, and the final binary digits.",
+        "hintChinese": "题目要求你说明如何把 denary number 转成 binary。答题时按步骤写：从最大权值开始、能否放入就写 1、剩余值继续比较。",
+        "question": "Describe how a positive denary integer can be converted into binary. [4]",
+        "markSchemeChinese": [
+          "1 分：说明使用 powers of 2 / place values（2 的幂次权值）。",
+          "1 分：说明从 largest place value that is less than or equal to the number 开始。",
+          "1 分：说明 if the place value fits, write 1 and subtract it from the remaining value。",
+          "1 分：说明 if it does not fit, write 0 and move to the next smaller place value。"
+        ],
+        "markScheme": [
+          "1 mark: Use powers of 2 / place values.",
+          "1 mark: Start with the largest place value less than or equal to the number.",
+          "1 mark: If the place value fits, write 1 and subtract it from the remaining value.",
+          "1 mark: If it does not fit, write 0 and move to the next smaller place value."
+        ],
+        "modelAnswerChinese": "使用 2 的幂次作为 place values。从小于或等于该数的最大权值开始比较。如果该权值可以放入当前剩余值，这一位写 1，并从剩余值中减去该权值。如果不能放入，这一位写 0，再比较下一个更小的权值，直到最低位。",
+        "modelAnswer": "Powers of 2 are used as place values. Start from the largest place value that is less than or equal to the denary number. If the place value fits the remaining value, write 1 and subtract that place value. If it does not fit, write 0 and move to the next smaller place value until the least significant bit is found."
+      },
+      "source": {
+        "chapter": 1,
+        "section": "1.1",
+        "printedPage": 2,
+        "pdfPage": 18
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点"
     },
     {
       "id": "logic-gates",
       "title": "Logic Gates",
       "titleChinese": "逻辑门",
-      "status": "Coming soon",
-      "statusChinese": "即将推出"
+      "subtopic": "AND, OR, NOT, XOR and truth tables",
+      "subtopicChinese": "与、或、非、异或与真值表",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/logic-gates",
+      "visual": "logic-gates",
+      "sectionTitles": {
+        "visual": "拨动输入 A/B，对照 truth table 看输出",
+        "terms": "先记每个门何时输出 1，再背英文定义",
+        "overview": "从输入到 Boolean expression，再到输出",
+        "quiz": "检查 AND、OR、XOR 有没有记混",
+        "practice": "用 truth table 语言写得分点"
+      },
+      "summary": {
+        "chinese": "Logic gates（逻辑门）根据输入产生 0 或 1 的输出。AND 要两个输入都是 1 才输出 1；OR 只要有一个 1 就输出 1；NOT 会取反；XOR 只在两个输入不同时输出 1。考试常考 truth tables 和 Boolean expressions。",
+        "english": "Logic gates produce a binary output from one or more binary inputs. Truth tables and Boolean expressions are used to describe their behaviour."
+      },
+      "keyTerms": [
+        {
+          "term": "AND gate",
+          "abbreviation": "",
+          "chineseTerm": "与门",
+          "chineseExplanation": "AND gate（与门）只有当所有输入都是 1 时，输出才是 1。Boolean expression 写成 A · B 或 A AND B。",
+          "examWording": "An AND gate outputs 1 only if all of its inputs are 1."
+        },
+        {
+          "term": "OR gate",
+          "abbreviation": "",
+          "chineseTerm": "或门",
+          "chineseExplanation": "OR gate（或门）只要有一个输入是 1，输出就是 1。Boolean expression 写成 A + B 或 A OR B。",
+          "examWording": "An OR gate outputs 1 if one or more of its inputs are 1."
+        },
+        {
+          "term": "NOT gate",
+          "abbreviation": "",
+          "chineseTerm": "非门",
+          "chineseExplanation": "NOT gate（非门）只有一个输入。输入 1 则输出 0，输入 0 则输出 1。",
+          "examWording": "A NOT gate inverts its single input. If the input is 1 the output is 0."
+        },
+        {
+          "term": "XOR gate",
+          "abbreviation": "",
+          "chineseTerm": "异或门",
+          "chineseExplanation": "XOR gate（异或门）只在两个输入不同时输出 1。两个都是 1 时输出 0，这是和 OR 最容易混淆的点。",
+          "examWording": "An XOR gate outputs 1 if the inputs are different. It outputs 0 if the inputs are the same."
+        },
+        {
+          "term": "NAND gate",
+          "abbreviation": "",
+          "chineseTerm": "与非门",
+          "chineseExplanation": "NAND gate（与非门）是 AND 后再 NOT。只有两个输入都是 1 时输出才是 0。",
+          "examWording": "A NAND gate outputs 0 only if all of its inputs are 1; otherwise it outputs 1."
+        },
+        {
+          "term": "Truth table",
+          "abbreviation": "",
+          "chineseTerm": "真值表",
+          "chineseExplanation": "Truth table（真值表）列出所有可能的输入组合以及对应输出。两个输入通常有 00、01、10、11 四行。",
+          "examWording": "A truth table shows every possible combination of inputs and the corresponding output."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Inputs",
+          "description": "A 和 B / binary inputs"
+        },
+        {
+          "label": "Gate",
+          "description": "AND OR NOT XOR / chosen logic gate"
+        },
+        {
+          "label": "Boolean",
+          "description": "A·B 或 A+B / Boolean expression"
+        },
+        {
+          "label": "Truth table",
+          "description": "所有输入组合 / all input combinations"
+        },
+        {
+          "label": "Output",
+          "description": "0 或 1 / binary output"
+        }
+      ],
+      "commonMistakes": [
+        "XOR 在 1 和 1 时输出 0；OR 在 1 和 1 时输出 1。不要把两者写成一样。",
+        "AND 的符号是 · 或 ∧，OR 的符号是 + 或 ∨，不要写反。",
+        "NOT 只有一个输入，不要给它画成两个输入。",
+        "两个输入的 truth table 必须覆盖 00、01、10、11 全部四行。",
+        "NAND 不是 AND 的另一种名字；它是 NOT AND，全 1 时输出 0。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "AND 门在输入 1 和 1 时输出什么？",
+          "question": "What is the output of an AND gate when both inputs are 1?",
+          "options": [
+            "0",
+            "1",
+            "X",
+            "Undefined"
+          ],
+          "answer": "1",
+          "explanationChinese": "AND 只有全部输入为 1 时才输出 1。",
+          "explanation": "An AND gate outputs 1 only if all inputs are 1."
+        },
+        {
+          "questionChinese": "XOR 和 OR 的关键区别是什么？",
+          "question": "Which statement correctly describes XOR compared with OR?",
+          "options": [
+            "XOR outputs 1 when both inputs are 1",
+            "XOR outputs 1 only when the inputs are different",
+            "XOR inverts a single input",
+            "XOR outputs 0 whenever one input is 1"
+          ],
+          "answer": "XOR outputs 1 only when the inputs are different",
+          "explanationChinese": "XOR 在输入不同时输出 1；两个输入都是 1 时输出 0。OR 在这种情况下仍输出 1。",
+          "explanation": "XOR outputs 1 only when the inputs differ. OR still outputs 1 when both inputs are 1."
+        },
+        {
+          "questionChinese": "判断正误：NOT 门可以有两个输入。",
+          "question": "True or False: A NOT gate can have two inputs.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "answer": "False",
+          "explanationChinese": "错误。NOT 是 inverter，只有一个 input。",
+          "explanation": "A NOT gate has a single input and inverts it."
+        }
+      ],
+      "practice": {
+        "answerPlaceholder": "Write in English. Hint: define XOR, define OR, and give the output when both inputs are 1.",
+        "hintChinese": "题目要你比较 XOR 和 OR。分别说明何时输出 1，并点出 both inputs are 1 时的不同结果。",
+        "question": "Explain the difference between an OR gate and an XOR gate. [4]",
+        "markSchemeChinese": [
+          "1 分：说明 OR outputs 1 if one or more inputs are 1。",
+          "1 分：说明 XOR outputs 1 if the inputs are different。",
+          "1 分：说明 when both inputs are 1, OR outputs 1。",
+          "1 分：说明 when both inputs are 1, XOR outputs 0。"
+        ],
+        "markScheme": [
+          "1 mark: OR outputs 1 if one or more inputs are 1.",
+          "1 mark: XOR outputs 1 if the inputs are different.",
+          "1 mark: If both inputs are 1, OR outputs 1.",
+          "1 mark: If both inputs are 1, XOR outputs 0."
+        ],
+        "modelAnswerChinese": "OR 门只要有一个或多个输入为 1 就输出 1。XOR 门只在两个输入不同时输出 1。当两个输入都是 1 时，OR 输出 1，而 XOR 输出 0。",
+        "modelAnswer": "An OR gate outputs 1 if one or more of its inputs are 1. An XOR gate outputs 1 only if the inputs are different. When both inputs are 1, the OR gate outputs 1 but the XOR gate outputs 0."
+      },
+      "source": {
+        "chapter": 3,
+        "section": "3.2",
+        "printedPage": 89,
+        "pdfPage": 105
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点"
     },
     {
       "id": "algorithms",
       "title": "Algorithms",
       "titleChinese": "算法",
-      "status": "Coming soon",
-      "statusChinese": "即将推出"
+      "subtopic": "Linear search and comparing search methods",
+      "subtopicChinese": "线性查找与查找方法比较",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/algorithms",
+      "visual": "linear-search",
+      "sectionTitles": {
+        "visual": "从左到右逐个比较，直到找到目标或到达末尾",
+        "terms": "先理解 searching 过程，再比较时间与前提条件",
+        "overview": "从第一个元素比较到找到或失败",
+        "quiz": "检查 linear search 和 binary search 的前提",
+        "practice": "用逐步比较的语言写英文得分句"
+      },
+      "summary": {
+        "chinese": "Linear search（线性查找）从列表的第一项开始，逐个和 search item 比较，直到找到或到达末尾。它不要求数据已排序。Binary search（二分查找）在有序列表上通常需要更少的比较，但前提是数据已经 ordered。",
+        "english": "Linear search checks each item in turn until the search item is found or the end of the list is reached. The list does not need to be ordered."
+      },
+      "keyTerms": [
+        {
+          "term": "Linear search",
+          "abbreviation": "",
+          "chineseTerm": "线性查找",
+          "chineseExplanation": "Linear search（线性查找）从第一个元素开始（本演示的 index 为 0）逐个比较。找到目标就停止；比较完仍没有找到，则 search is unsuccessful。",
+          "examWording": "Linear search starts at the first item and compares each item in turn with the search item."
+        },
+        {
+          "term": "Binary search",
+          "abbreviation": "",
+          "chineseTerm": "二分查找",
+          "chineseExplanation": "Binary search（二分查找）每次检查中间项，然后丢掉一半数据。前提是 the data must be ordered。",
+          "examWording": "Binary search repeatedly compares the middle item of an ordered list and discards half of the remaining items."
+        },
+        {
+          "term": "Algorithm",
+          "abbreviation": "",
+          "chineseTerm": "算法",
+          "chineseExplanation": "Algorithm（算法）是解决某一问题的逐步方法，可以用 pseudocode、flowchart 或 program code 表示。",
+          "examWording": "An algorithm is a step-by-step method for solving a problem."
+        },
+        {
+          "term": "Pseudocode",
+          "abbreviation": "",
+          "chineseTerm": "伪代码",
+          "chineseExplanation": "Pseudocode（伪代码）用接近英语的步骤描述算法，不依赖某一种编程语言的精确语法。",
+          "examWording": "Pseudocode is a language-independent way of describing an algorithm using structured English-like statements."
+        },
+        {
+          "term": "Worst case",
+          "abbreviation": "",
+          "chineseTerm": "最坏情况",
+          "chineseExplanation": "Linear search 的 worst case 是目标在最后，或根本不存在，这时要比较 n 次。",
+          "examWording": "In the worst case, linear search compares every item in the list."
+        },
+        {
+          "term": "Ordered list",
+          "abbreviation": "",
+          "chineseTerm": "有序列表",
+          "chineseExplanation": "Ordered list（有序列表）中的数据已按大小或字母顺序排列。Binary search 需要这个条件，linear search 不需要。",
+          "examWording": "An ordered list has items arranged in sequence. Binary search requires the list to be ordered."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Start",
+          "description": "从第一项开始 / first item"
+        },
+        {
+          "label": "Compare",
+          "description": "当前项是否等于目标 / item = search value?"
+        },
+        {
+          "label": "Found",
+          "description": "相同则返回位置 / return the index"
+        },
+        {
+          "label": "Next item",
+          "description": "不同则检查下一项 / move to next item"
+        },
+        {
+          "label": "End",
+          "description": "未找到则失败 / unsuccessful search"
+        }
+      ],
+      "commonMistakes": [
+        "Linear search 不要求 list is ordered。不要把 ordered 写成它的前提。",
+        "Binary search 必须用于 ordered list。未排序时不能直接做二分。",
+        "找到目标后应该 stop，不要继续比较后面所有元素才算完成。",
+        "Unsuccessful search 也要说明：reach the end of the list without finding the item。",
+        "Worst case 不是“比较一次”，而是 may have to search every item。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "Linear search 是否要求数据已经排序？",
+          "question": "Does linear search require the data to be ordered?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": "No",
+          "explanationChinese": "Linear search 从第一项逐个比较，不需要 ordered list。",
+          "explanation": "Linear search works on unordered or ordered lists."
+        },
+        {
+          "questionChinese": "在 [4, 11, 7, 19, 3] 中查找 19，linear search 会先比较哪一项？",
+          "question": "When searching for 19 in [4, 11, 7, 19, 3], which item is compared first?",
+          "options": [
+            "19",
+            "3",
+            "4",
+            "7"
+          ],
+          "answer": "4",
+          "explanationChinese": "Linear search 从 first item 开始，所以先比较 4。",
+          "explanation": "Linear search starts at the first item, so 4 is compared first."
+        },
+        {
+          "questionChinese": "判断正误：Binary search 可以用于未排序列表。",
+          "question": "True or False: Binary search can be used on an unordered list.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "answer": "False",
+          "explanationChinese": "错误。Binary search requires the list to be ordered。",
+          "explanation": "Binary search requires the data to be ordered."
+        }
+      ],
+      "practice": {
+        "answerPlaceholder": "Write in English. Hint: start at the first item, compare each in turn, stop when found, or report unsuccessful at the end.",
+        "hintChinese": "题目要你描述 linear search。按顺序写：从第一项开始、逐个比较、找到就停止、到末尾仍没有则 unsuccessful。",
+        "question": "Describe how a linear search finds an item in a list. [4]",
+        "markSchemeChinese": [
+          "1 分：说明 start at the first item。",
+          "1 分：说明 compare each item in turn with the search item。",
+          "1 分：说明 if a match is found, the search stops / the position is returned。",
+          "1 分：说明 if the end of the list is reached without a match, the search is unsuccessful。"
+        ],
+        "markScheme": [
+          "1 mark: Start at the first item.",
+          "1 mark: Compare each item in turn with the search item.",
+          "1 mark: If the item is found, stop / return its position.",
+          "1 mark: If the end of the list is reached without a match, the search is unsuccessful."
+        ],
+        "modelAnswerChinese": "线性查找从列表的第一项开始。每一项都依次与要查找的值比较。如果找到匹配项，查找停止并返回该位置。如果比较到列表末尾仍没有匹配项，则这次查找不成功。",
+        "modelAnswer": "Linear search starts at the first item in the list. Each item is compared in turn with the search item. If a match is found, the search stops and the position is returned. If the end of the list is reached without a match, the search is unsuccessful."
+      },
+      "source": {
+        "chapter": 10,
+        "section": "10.2; 19.1",
+        "printedPage": 241,
+        "pdfPage": 257
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点"
+    },
+    {
+      "id": "communication",
+      "title": "Communication",
+      "titleChinese": "通信与网络",
+      "subtopic": "2.1 · Core concepts",
+      "subtopicChinese": "局域网中的设备与跨网络通信",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/communication",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "局域网：连接有限地理范围内的设备，例如一所学校。 交换机：在局域网内依据目的 MAC 地址转发帧；已知目的端口时不必广播到所有端口。 路由器：连接不同网络，依据目的 IP 地址与路由表转发数据包。",
+        "english": "A LAN connects devices within a limited geographical area. A switch forwards frames within a LAN using destination MAC addresses. A router forwards packets between networks using IP addresses and a routing table."
+      },
+      "keyTerms": [
+        {
+          "term": "LAN",
+          "chineseTerm": "局域网",
+          "abbreviation": "",
+          "chineseExplanation": "连接有限地理范围内的设备，例如一所学校。",
+          "examWording": "A LAN connects devices within a limited geographical area."
+        },
+        {
+          "term": "Switch",
+          "chineseTerm": "交换机",
+          "abbreviation": "",
+          "chineseExplanation": "在局域网内依据目的 MAC 地址转发帧；已知目的端口时不必广播到所有端口。",
+          "examWording": "A switch forwards frames within a LAN using destination MAC addresses."
+        },
+        {
+          "term": "Router",
+          "chineseTerm": "路由器",
+          "abbreviation": "",
+          "chineseExplanation": "连接不同网络，依据目的 IP 地址与路由表转发数据包。",
+          "examWording": "A router forwards packets between networks using IP addresses and a routing table."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "LAN",
+          "description": "连接有限地理范围内的设备，例如一所学校。"
+        },
+        {
+          "label": "Switch",
+          "description": "在局域网内依据目的 MAC 地址转发帧；已知目的端口时不必广播到所有端口。"
+        },
+        {
+          "label": "Router",
+          "description": "连接不同网络，依据目的 IP 地址与路由表转发数据包。"
+        }
+      ],
+      "commonMistakes": [
+        "Switch 负责局域网内转发；Router 连接不同网络。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "学校局域网需要连接另一个网络，应使用什么设备？",
+          "question": "Which device connects a school LAN to another network?",
+          "options": [
+            "Router",
+            "Switch only",
+            "Monitor"
+          ],
+          "answer": "Router",
+          "explanationChinese": "Switch 负责局域网内转发；Router 连接不同网络。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Describe the roles of a LAN, a switch and a router in a school network. [3]",
+        "markSchemeChinese": [
+          "连接有限地理范围内的设备，例如一所学校。",
+          "在局域网内依据目的 MAC 地址转发帧；已知目的端口时不必广播到所有端口。",
+          "连接不同网络，依据目的 IP 地址与路由表转发数据包。"
+        ],
+        "markScheme": [
+          "A LAN connects devices within a limited geographical area.",
+          "A switch forwards frames within a LAN using destination MAC addresses.",
+          "A router forwards packets between networks using IP addresses and a routing table."
+        ],
+        "modelAnswerChinese": "连接有限地理范围内的设备，例如一所学校。 在局域网内依据目的 MAC 地址转发帧；已知目的端口时不必广播到所有端口。 连接不同网络，依据目的 IP 地址与路由表转发数据包。",
+        "modelAnswer": "A LAN connects devices within a limited geographical area. A switch forwards frames within a LAN using destination MAC addresses. A router forwards packets between networks using IP addresses and a routing table."
+      },
+      "source": {
+        "chapter": 2,
+        "section": "2.1",
+        "printedPage": 28,
+        "pdfPage": 44
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware",
+      "titleChinese": "存储器与硬件",
+      "subtopic": "3.1 · Core concepts",
+      "subtopicChinese": "RAM、ROM 与 DRAM 的区别",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/hardware",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "随机存取存储器：运行时存放程序和数据，通常易失，可读可写。 只读存储器：断电后仍保留内容，可存放启动固件。 动态 RAM：通过电容保存位，电荷会泄漏，因此需要定期刷新。",
+        "english": "RAM holds programs and data in use and is normally volatile and writable. ROM is non-volatile memory used to store firmware. DRAM requires regular refreshing to retain its stored bits."
+      },
+      "keyTerms": [
+        {
+          "term": "RAM",
+          "chineseTerm": "随机存取存储器",
+          "abbreviation": "",
+          "chineseExplanation": "运行时存放程序和数据，通常易失，可读可写。",
+          "examWording": "RAM holds programs and data in use and is normally volatile and writable."
+        },
+        {
+          "term": "ROM",
+          "chineseTerm": "只读存储器",
+          "abbreviation": "",
+          "chineseExplanation": "断电后仍保留内容，可存放启动固件。",
+          "examWording": "ROM is non-volatile memory used to store firmware."
+        },
+        {
+          "term": "DRAM",
+          "chineseTerm": "动态 RAM",
+          "abbreviation": "",
+          "chineseExplanation": "通过电容保存位，电荷会泄漏，因此需要定期刷新。",
+          "examWording": "DRAM requires regular refreshing to retain its stored bits."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "RAM",
+          "description": "运行时存放程序和数据，通常易失，可读可写。"
+        },
+        {
+          "label": "ROM",
+          "description": "断电后仍保留内容，可存放启动固件。"
+        },
+        {
+          "label": "DRAM",
+          "description": "通过电容保存位，电荷会泄漏，因此需要定期刷新。"
+        }
+      ],
+      "commonMistakes": [
+        "ROM 是非易失性；不要认为所有 memory 都会断电丢失。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "断电后仍需保留启动固件，选择哪一种？",
+          "question": "Which memory retains boot firmware without power?",
+          "options": [
+            "ROM",
+            "DRAM",
+            "A CPU register"
+          ],
+          "answer": "ROM",
+          "explanationChinese": "ROM 是非易失性；不要认为所有 memory 都会断电丢失。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Describe RAM, ROM and the need to refresh DRAM. [3]",
+        "markSchemeChinese": [
+          "运行时存放程序和数据，通常易失，可读可写。",
+          "断电后仍保留内容，可存放启动固件。",
+          "通过电容保存位，电荷会泄漏，因此需要定期刷新。"
+        ],
+        "markScheme": [
+          "RAM holds programs and data in use and is normally volatile and writable.",
+          "ROM is non-volatile memory used to store firmware.",
+          "DRAM requires regular refreshing to retain its stored bits."
+        ],
+        "modelAnswerChinese": "运行时存放程序和数据，通常易失，可读可写。 断电后仍保留内容，可存放启动固件。 通过电容保存位，电荷会泄漏，因此需要定期刷新。",
+        "modelAnswer": "RAM holds programs and data in use and is normally volatile and writable. ROM is non-volatile memory used to store firmware. DRAM requires regular refreshing to retain its stored bits."
+      },
+      "source": {
+        "chapter": 3,
+        "section": "3.1",
+        "printedPage": 68,
+        "pdfPage": 84
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "system-software",
+      "title": "System Software",
+      "titleChinese": "系统软件",
+      "subtopic": "5.1–5.2 · Core concepts",
+      "subtopicChinese": "操作系统与语言翻译器",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/system-software",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "操作系统：管理内存、处理器、文件和设备，提供程序运行环境。 编译器：把源程序翻译为目标代码；目标代码随后可以执行。 解释器：在执行过程中分析并执行源程序语句。",
+        "english": "An operating system manages hardware resources and provides services to programs. A compiler translates source code into target code before that code is executed. An interpreter analyses and executes source statements during a program run."
+      },
+      "keyTerms": [
+        {
+          "term": "Operating system",
+          "chineseTerm": "操作系统",
+          "abbreviation": "",
+          "chineseExplanation": "管理内存、处理器、文件和设备，提供程序运行环境。",
+          "examWording": "An operating system manages hardware resources and provides services to programs."
+        },
+        {
+          "term": "Compiler",
+          "chineseTerm": "编译器",
+          "abbreviation": "",
+          "chineseExplanation": "把源程序翻译为目标代码；目标代码随后可以执行。",
+          "examWording": "A compiler translates source code into target code before that code is executed."
+        },
+        {
+          "term": "Interpreter",
+          "chineseTerm": "解释器",
+          "abbreviation": "",
+          "chineseExplanation": "在执行过程中分析并执行源程序语句。",
+          "examWording": "An interpreter analyses and executes source statements during a program run."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Operating system",
+          "description": "管理内存、处理器、文件和设备，提供程序运行环境。"
+        },
+        {
+          "label": "Compiler",
+          "description": "把源程序翻译为目标代码；目标代码随后可以执行。"
+        },
+        {
+          "label": "Interpreter",
+          "description": "在执行过程中分析并执行源程序语句。"
+        }
+      ],
+      "commonMistakes": [
+        "资源管理属于操作系统职责。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "哪类软件负责管理内存与设备？",
+          "question": "Which software manages memory and devices?",
+          "options": [
+            "Operating system",
+            "Text document",
+            "Application data"
+          ],
+          "answer": "Operating system",
+          "explanationChinese": "资源管理属于操作系统职责。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain the roles of an operating system, a compiler and an interpreter. [3]",
+        "markSchemeChinese": [
+          "管理内存、处理器、文件和设备，提供程序运行环境。",
+          "把源程序翻译为目标代码；目标代码随后可以执行。",
+          "在执行过程中分析并执行源程序语句。"
+        ],
+        "markScheme": [
+          "An operating system manages hardware resources and provides services to programs.",
+          "A compiler translates source code into target code before that code is executed.",
+          "An interpreter analyses and executes source statements during a program run."
+        ],
+        "modelAnswerChinese": "管理内存、处理器、文件和设备，提供程序运行环境。 把源程序翻译为目标代码；目标代码随后可以执行。 在执行过程中分析并执行源程序语句。",
+        "modelAnswer": "An operating system manages hardware resources and provides services to programs. A compiler translates source code into target code before that code is executed. An interpreter analyses and executes source statements during a program run."
+      },
+      "source": {
+        "chapter": 5,
+        "section": "5.1–5.2",
+        "printedPage": 136,
+        "pdfPage": 152
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "security-integrity",
+      "title": "Security and Data Integrity",
+      "titleChinese": "安全与数据完整性",
+      "subtopic": "6.1–6.2 · Core concepts",
+      "subtopicChinese": "身份验证、数据校验与核对",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/security-integrity",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "身份验证：检查用户是否是其声称的身份，例如核对密码。 数据校验：检查输入是否符合规则，不能证明它与事实一致。 数据核对：通过二次录入或与原始资料比较，减少抄录错误。",
+        "english": "Authentication checks a claimed identity. Validation checks whether input meets specified rules, not whether it is factually correct. Verification checks that entered data matches its source, for example by double entry."
+      },
+      "keyTerms": [
+        {
+          "term": "Authentication",
+          "chineseTerm": "身份验证",
+          "abbreviation": "",
+          "chineseExplanation": "检查用户是否是其声称的身份，例如核对密码。",
+          "examWording": "Authentication checks a claimed identity."
+        },
+        {
+          "term": "Validation",
+          "chineseTerm": "数据校验",
+          "abbreviation": "",
+          "chineseExplanation": "检查输入是否符合规则，不能证明它与事实一致。",
+          "examWording": "Validation checks whether input meets specified rules, not whether it is factually correct."
+        },
+        {
+          "term": "Verification",
+          "chineseTerm": "数据核对",
+          "abbreviation": "",
+          "chineseExplanation": "通过二次录入或与原始资料比较，减少抄录错误。",
+          "examWording": "Verification checks that entered data matches its source, for example by double entry."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Authentication",
+          "description": "检查用户是否是其声称的身份，例如核对密码。"
+        },
+        {
+          "label": "Validation",
+          "description": "检查输入是否符合规则，不能证明它与事实一致。"
+        },
+        {
+          "label": "Verification",
+          "description": "通过二次录入或与原始资料比较，减少抄录错误。"
+        }
+      ],
+      "commonMistakes": [
+        "62 符合范围但不是正确年龄；validation 不等于 verification。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "真实年龄 26 被输入成 62，范围校验 0–120 能发现吗？",
+          "question": "Would a range check of 0–120 detect 62 entered instead of 26?",
+          "options": [
+            "No",
+            "Always",
+            "Only with more RAM"
+          ],
+          "answer": "No",
+          "explanationChinese": "62 符合范围但不是正确年龄；validation 不等于 verification。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain authentication, validation and verification for an online registration form. [3]",
+        "markSchemeChinese": [
+          "检查用户是否是其声称的身份，例如核对密码。",
+          "检查输入是否符合规则，不能证明它与事实一致。",
+          "通过二次录入或与原始资料比较，减少抄录错误。"
+        ],
+        "markScheme": [
+          "Authentication checks a claimed identity.",
+          "Validation checks whether input meets specified rules, not whether it is factually correct.",
+          "Verification checks that entered data matches its source, for example by double entry."
+        ],
+        "modelAnswerChinese": "检查用户是否是其声称的身份，例如核对密码。 检查输入是否符合规则，不能证明它与事实一致。 通过二次录入或与原始资料比较，减少抄录错误。",
+        "modelAnswer": "Authentication checks a claimed identity. Validation checks whether input meets specified rules, not whether it is factually correct. Verification checks that entered data matches its source, for example by double entry."
+      },
+      "source": {
+        "chapter": 6,
+        "section": "6.1–6.2",
+        "printedPage": 159,
+        "pdfPage": 175
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "ethics-ownership",
+      "title": "Ethics and Ownership",
+      "titleChinese": "伦理与知识产权",
+      "subtopic": "7.1 · Core concepts",
+      "subtopicChinese": "隐私、职业伦理与抄袭",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/ethics-ownership",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "隐私：关注个人信息被谁访问及如何使用。 伦理：用职业行为准则和道德原则评估行为。 抄袭：将他人的作品或贡献冒充为自己的。",
+        "english": "Privacy concerns control over access to and use of personal information. Ethics concerns principles governing professional behaviour. Plagiarism presents another person’s work as one’s own."
+      },
+      "keyTerms": [
+        {
+          "term": "Privacy",
+          "chineseTerm": "隐私",
+          "abbreviation": "",
+          "chineseExplanation": "关注个人信息被谁访问及如何使用。",
+          "examWording": "Privacy concerns control over access to and use of personal information."
+        },
+        {
+          "term": "Ethics",
+          "chineseTerm": "伦理",
+          "abbreviation": "",
+          "chineseExplanation": "用职业行为准则和道德原则评估行为。",
+          "examWording": "Ethics concerns principles governing professional behaviour."
+        },
+        {
+          "term": "Plagiarism",
+          "chineseTerm": "抄袭",
+          "abbreviation": "",
+          "chineseExplanation": "将他人的作品或贡献冒充为自己的。",
+          "examWording": "Plagiarism presents another person’s work as one’s own."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Privacy",
+          "description": "关注个人信息被谁访问及如何使用。"
+        },
+        {
+          "label": "Ethics",
+          "description": "用职业行为准则和道德原则评估行为。"
+        },
+        {
+          "label": "Plagiarism",
+          "description": "将他人的作品或贡献冒充为自己的。"
+        }
+      ],
+      "commonMistakes": [
+        "注明来源与获得使用许可是不同问题；不能用改名代替原创。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "把别人的程序改上自己的姓名并声称独立完成，属于什么？",
+          "question": "What is claiming another programmer’s work as your own?",
+          "options": [
+            "Plagiarism",
+            "Verification",
+            "Compression"
+          ],
+          "answer": "Plagiarism",
+          "explanationChinese": "注明来源与获得使用许可是不同问题；不能用改名代替原创。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain privacy, ethics and plagiarism in a software project. [3]",
+        "markSchemeChinese": [
+          "关注个人信息被谁访问及如何使用。",
+          "用职业行为准则和道德原则评估行为。",
+          "将他人的作品或贡献冒充为自己的。"
+        ],
+        "markScheme": [
+          "Privacy concerns control over access to and use of personal information.",
+          "Ethics concerns principles governing professional behaviour.",
+          "Plagiarism presents another person’s work as one’s own."
+        ],
+        "modelAnswerChinese": "关注个人信息被谁访问及如何使用。 用职业行为准则和道德原则评估行为。 将他人的作品或贡献冒充为自己的。",
+        "modelAnswer": "Privacy concerns control over access to and use of personal information. Ethics concerns principles governing professional behaviour. Plagiarism presents another person’s work as one’s own."
+      },
+      "source": {
+        "chapter": 7,
+        "section": "7.1",
+        "printedPage": 179,
+        "pdfPage": 195
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "databases",
+      "title": "Databases",
+      "titleChinese": "数据库",
+      "subtopic": "8.1 · Core concepts",
+      "subtopicChinese": "关系数据库、记录与属性",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/databases",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "表：把同类实体的数据组织为行和列。 记录：一行描述实体的一个实例，例如一名学生。 属性：一列描述实体的某项特征，例如学生姓名。",
+        "english": "A table organises data about one kind of entity into rows and columns. A record is a row describing one instance of an entity. An attribute is a property represented by a column in a table."
+      },
+      "keyTerms": [
+        {
+          "term": "Table",
+          "chineseTerm": "表",
+          "abbreviation": "",
+          "chineseExplanation": "把同类实体的数据组织为行和列。",
+          "examWording": "A table organises data about one kind of entity into rows and columns."
+        },
+        {
+          "term": "Record",
+          "chineseTerm": "记录",
+          "abbreviation": "",
+          "chineseExplanation": "一行描述实体的一个实例，例如一名学生。",
+          "examWording": "A record is a row describing one instance of an entity."
+        },
+        {
+          "term": "Attribute",
+          "chineseTerm": "属性",
+          "abbreviation": "",
+          "chineseExplanation": "一列描述实体的某项特征，例如学生姓名。",
+          "examWording": "An attribute is a property represented by a column in a table."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Table",
+          "description": "把同类实体的数据组织为行和列。"
+        },
+        {
+          "label": "Record",
+          "description": "一行描述实体的一个实例，例如一名学生。"
+        },
+        {
+          "label": "Attribute",
+          "description": "一列描述实体的某项特征，例如学生姓名。"
+        }
+      ],
+      "commonMistakes": [
+        "行是 record，列是 attribute。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "学生表中一名学生的完整一行是什么？",
+          "question": "What is one complete student row in a table?",
+          "options": [
+            "Record",
+            "Attribute",
+            "Whole database"
+          ],
+          "answer": "Record",
+          "explanationChinese": "行是 record，列是 attribute。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain table, record and attribute using a student database. [3]",
+        "markSchemeChinese": [
+          "把同类实体的数据组织为行和列。",
+          "一行描述实体的一个实例，例如一名学生。",
+          "一列描述实体的某项特征，例如学生姓名。"
+        ],
+        "markScheme": [
+          "A table organises data about one kind of entity into rows and columns.",
+          "A record is a row describing one instance of an entity.",
+          "An attribute is a property represented by a column in a table."
+        ],
+        "modelAnswerChinese": "把同类实体的数据组织为行和列。 一行描述实体的一个实例，例如一名学生。 一列描述实体的某项特征，例如学生姓名。",
+        "modelAnswer": "A table organises data about one kind of entity into rows and columns. A record is a row describing one instance of an entity. An attribute is a property represented by a column in a table."
+      },
+      "source": {
+        "chapter": 8,
+        "section": "8.1",
+        "printedPage": 196,
+        "pdfPage": 212
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "computational-thinking",
+      "title": "Algorithm Design",
+      "titleChinese": "计算思维与算法设计",
+      "subtopic": "9.1 · Core concepts",
+      "subtopicChinese": "抽象、分解与模式识别",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/computational-thinking",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "抽象：保留解决问题需要的细节，忽略无关内容。 分解：把复杂问题拆成较小、可以分别解决的子问题。 模式识别：发现相似子问题，考虑复用解决办法。",
+        "english": "Abstraction keeps essential information and omits irrelevant detail. Decomposition splits a complex problem into smaller subproblems. Pattern recognition identifies similarities that may share a solution."
+      },
+      "keyTerms": [
+        {
+          "term": "Abstraction",
+          "chineseTerm": "抽象",
+          "abbreviation": "",
+          "chineseExplanation": "保留解决问题需要的细节，忽略无关内容。",
+          "examWording": "Abstraction keeps essential information and omits irrelevant detail."
+        },
+        {
+          "term": "Decomposition",
+          "chineseTerm": "分解",
+          "abbreviation": "",
+          "chineseExplanation": "把复杂问题拆成较小、可以分别解决的子问题。",
+          "examWording": "Decomposition splits a complex problem into smaller subproblems."
+        },
+        {
+          "term": "Pattern recognition",
+          "chineseTerm": "模式识别",
+          "abbreviation": "",
+          "chineseExplanation": "发现相似子问题，考虑复用解决办法。",
+          "examWording": "Pattern recognition identifies similarities that may share a solution."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Abstraction",
+          "description": "保留解决问题需要的细节，忽略无关内容。"
+        },
+        {
+          "label": "Decomposition",
+          "description": "把复杂问题拆成较小、可以分别解决的子问题。"
+        },
+        {
+          "label": "Pattern recognition",
+          "description": "发现相似子问题，考虑复用解决办法。"
+        }
+      ],
+      "commonMistakes": [
+        "分解拆任务；抽象则减少无关细节。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "把订票系统拆成登录、查票和付款三个子系统，属于什么？",
+          "question": "What is splitting a booking system into login, search and payment?",
+          "options": [
+            "Decomposition",
+            "Encryption",
+            "Validation"
+          ],
+          "answer": "Decomposition",
+          "explanationChinese": "分解拆任务；抽象则减少无关细节。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain abstraction, decomposition and pattern recognition in designing software. [3]",
+        "markSchemeChinese": [
+          "保留解决问题需要的细节，忽略无关内容。",
+          "把复杂问题拆成较小、可以分别解决的子问题。",
+          "发现相似子问题，考虑复用解决办法。"
+        ],
+        "markScheme": [
+          "Abstraction keeps essential information and omits irrelevant detail.",
+          "Decomposition splits a complex problem into smaller subproblems.",
+          "Pattern recognition identifies similarities that may share a solution."
+        ],
+        "modelAnswerChinese": "保留解决问题需要的细节，忽略无关内容。 把复杂问题拆成较小、可以分别解决的子问题。 发现相似子问题，考虑复用解决办法。",
+        "modelAnswer": "Abstraction keeps essential information and omits irrelevant detail. Decomposition splits a complex problem into smaller subproblems. Pattern recognition identifies similarities that may share a solution."
+      },
+      "source": {
+        "chapter": 9,
+        "section": "9.1",
+        "printedPage": 217,
+        "pdfPage": 233
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "data-structures",
+      "title": "Data Types and Structures",
+      "titleChinese": "数据类型与结构",
+      "subtopic": "10.1, 10.4 · Core concepts",
+      "subtopicChinese": "数组、栈与队列",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/data-structures",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "数组：通过下标访问同一种数据类型的多个元素；下标起点由声明决定。 栈：遵循后进先出 LIFO；push 入栈，pop 移除栈顶。 队列：遵循先进先出 FIFO；从队尾加入，从队首移除。",
+        "english": "An array stores indexed elements of the same data type. A stack uses last in, first out order, with push and pop operations. A queue uses first in, first out order, with enqueue and dequeue operations."
+      },
+      "keyTerms": [
+        {
+          "term": "Array",
+          "chineseTerm": "数组",
+          "abbreviation": "",
+          "chineseExplanation": "通过下标访问同一种数据类型的多个元素；下标起点由声明决定。",
+          "examWording": "An array stores indexed elements of the same data type."
+        },
+        {
+          "term": "Stack",
+          "chineseTerm": "栈",
+          "abbreviation": "",
+          "chineseExplanation": "遵循后进先出 LIFO；push 入栈，pop 移除栈顶。",
+          "examWording": "A stack uses last in, first out order, with push and pop operations."
+        },
+        {
+          "term": "Queue",
+          "chineseTerm": "队列",
+          "abbreviation": "",
+          "chineseExplanation": "遵循先进先出 FIFO；从队尾加入，从队首移除。",
+          "examWording": "A queue uses first in, first out order, with enqueue and dequeue operations."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Array",
+          "description": "通过下标访问同一种数据类型的多个元素；下标起点由声明决定。"
+        },
+        {
+          "label": "Stack",
+          "description": "遵循后进先出 LIFO；push 入栈，pop 移除栈顶。"
+        },
+        {
+          "label": "Queue",
+          "description": "遵循先进先出 FIFO；从队尾加入，从队首移除。"
+        }
+      ],
+      "commonMistakes": [
+        "最后入栈的是 C，所以先移除 C。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "依次把 A、B、C 压入空栈，第一次 pop 得到什么？",
+          "question": "After pushing A, B and C onto an empty stack, what is popped first?",
+          "options": [
+            "C",
+            "A",
+            "B"
+          ],
+          "answer": "C",
+          "explanationChinese": "最后入栈的是 C，所以先移除 C。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Describe an array, a stack and a queue, including their access order. [3]",
+        "markSchemeChinese": [
+          "通过下标访问同一种数据类型的多个元素；下标起点由声明决定。",
+          "遵循后进先出 LIFO；push 入栈，pop 移除栈顶。",
+          "遵循先进先出 FIFO；从队尾加入，从队首移除。"
+        ],
+        "markScheme": [
+          "An array stores indexed elements of the same data type.",
+          "A stack uses last in, first out order, with push and pop operations.",
+          "A queue uses first in, first out order, with enqueue and dequeue operations."
+        ],
+        "modelAnswerChinese": "通过下标访问同一种数据类型的多个元素；下标起点由声明决定。 遵循后进先出 LIFO；push 入栈，pop 移除栈顶。 遵循先进先出 FIFO；从队尾加入，从队首移除。",
+        "modelAnswer": "An array stores indexed elements of the same data type. A stack uses last in, first out order, with push and pop operations. A queue uses first in, first out order, with enqueue and dequeue operations."
+      },
+      "source": {
+        "chapter": 10,
+        "section": "10.1, 10.4",
+        "printedPage": 238,
+        "pdfPage": 254
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "programming",
+      "title": "Programming",
+      "titleChinese": "程序设计",
+      "subtopic": "11.1 · Core concepts",
+      "subtopicChinese": "变量、常量与函数",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/programming",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "变量：有名称的存储项，其值在执行期间可以变化。 常量：有名称的值，程序运行期间不改变。 函数：可复用的子程序，执行后返回一个值。",
+        "english": "A variable is a named data item whose value can change during execution. A constant is a named value that does not change during execution. A function is a reusable subroutine that returns a value."
+      },
+      "keyTerms": [
+        {
+          "term": "Variable",
+          "chineseTerm": "变量",
+          "abbreviation": "",
+          "chineseExplanation": "有名称的存储项，其值在执行期间可以变化。",
+          "examWording": "A variable is a named data item whose value can change during execution."
+        },
+        {
+          "term": "Constant",
+          "chineseTerm": "常量",
+          "abbreviation": "",
+          "chineseExplanation": "有名称的值，程序运行期间不改变。",
+          "examWording": "A constant is a named value that does not change during execution."
+        },
+        {
+          "term": "Function",
+          "chineseTerm": "函数",
+          "abbreviation": "",
+          "chineseExplanation": "可复用的子程序，执行后返回一个值。",
+          "examWording": "A function is a reusable subroutine that returns a value."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Variable",
+          "description": "有名称的存储项，其值在执行期间可以变化。"
+        },
+        {
+          "label": "Constant",
+          "description": "有名称的值，程序运行期间不改变。"
+        },
+        {
+          "label": "Function",
+          "description": "可复用的子程序，执行后返回一个值。"
+        }
+      ],
+      "commonMistakes": [
+        "在本课程术语中，function 返回值。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "程序计算并返回一个平均值，应使用哪种子程序？",
+          "question": "Which subroutine returns a calculated average?",
+          "options": [
+            "Function",
+            "Constant",
+            "Comment"
+          ],
+          "answer": "Function",
+          "explanationChinese": "在本课程术语中，function 返回值。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain a variable, a constant and a function in a program. [3]",
+        "markSchemeChinese": [
+          "有名称的存储项，其值在执行期间可以变化。",
+          "有名称的值，程序运行期间不改变。",
+          "可复用的子程序，执行后返回一个值。"
+        ],
+        "markScheme": [
+          "A variable is a named data item whose value can change during execution.",
+          "A constant is a named value that does not change during execution.",
+          "A function is a reusable subroutine that returns a value."
+        ],
+        "modelAnswerChinese": "有名称的存储项，其值在执行期间可以变化。 有名称的值，程序运行期间不改变。 可复用的子程序，执行后返回一个值。",
+        "modelAnswer": "A variable is a named data item whose value can change during execution. A constant is a named value that does not change during execution. A function is a reusable subroutine that returns a value."
+      },
+      "source": {
+        "chapter": 11,
+        "section": "11.1",
+        "printedPage": 264,
+        "pdfPage": 280
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "software-development",
+      "title": "Software Development",
+      "titleChinese": "软件开发",
+      "subtopic": "12.1 · Core concepts",
+      "subtopicChinese": "分析、设计、测试与开发周期",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/software-development",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "需求分析：调查用户需求，明确软件必须做什么。 设计：依据需求规划算法、数据结构及模块。 测试：使用测试数据比较实际与预期结果，发现缺陷。",
+        "english": "Analysis establishes and specifies what the program must do. Design specifies how the program will meet its requirements. Testing compares actual results with expected results to identify defects."
+      },
+      "keyTerms": [
+        {
+          "term": "Analysis",
+          "chineseTerm": "需求分析",
+          "abbreviation": "",
+          "chineseExplanation": "调查用户需求，明确软件必须做什么。",
+          "examWording": "Analysis establishes and specifies what the program must do."
+        },
+        {
+          "term": "Design",
+          "chineseTerm": "设计",
+          "abbreviation": "",
+          "chineseExplanation": "依据需求规划算法、数据结构及模块。",
+          "examWording": "Design specifies how the program will meet its requirements."
+        },
+        {
+          "term": "Testing",
+          "chineseTerm": "测试",
+          "abbreviation": "",
+          "chineseExplanation": "使用测试数据比较实际与预期结果，发现缺陷。",
+          "examWording": "Testing compares actual results with expected results to identify defects."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Analysis",
+          "description": "调查用户需求，明确软件必须做什么。"
+        },
+        {
+          "label": "Design",
+          "description": "依据需求规划算法、数据结构及模块。"
+        },
+        {
+          "label": "Testing",
+          "description": "使用测试数据比较实际与预期结果，发现缺陷。"
+        }
+      ],
+      "commonMistakes": [
+        "Analysis 回答做什么；Design 回答如何做。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "决定用户需要哪些功能，属于哪个阶段？",
+          "question": "Which stage determines the required user features?",
+          "options": [
+            "Analysis",
+            "Coding",
+            "Deployment"
+          ],
+          "answer": "Analysis",
+          "explanationChinese": "Analysis 回答做什么；Design 回答如何做。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain the purposes of analysis, design and testing. [3]",
+        "markSchemeChinese": [
+          "调查用户需求，明确软件必须做什么。",
+          "依据需求规划算法、数据结构及模块。",
+          "使用测试数据比较实际与预期结果，发现缺陷。"
+        ],
+        "markScheme": [
+          "Analysis establishes and specifies what the program must do.",
+          "Design specifies how the program will meet its requirements.",
+          "Testing compares actual results with expected results to identify defects."
+        ],
+        "modelAnswerChinese": "调查用户需求，明确软件必须做什么。 依据需求规划算法、数据结构及模块。 使用测试数据比较实际与预期结果，发现缺陷。",
+        "modelAnswer": "Analysis establishes and specifies what the program must do. Design specifies how the program will meet its requirements. Testing compares actual results with expected results to identify defects."
+      },
+      "source": {
+        "chapter": 12,
+        "section": "12.1",
+        "printedPage": 283,
+        "pdfPage": 299
+      },
+      "level": "AS",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "advanced-representation",
+      "title": "Advanced Data Representation",
+      "titleChinese": "高级数据表示",
+      "subtopic": "13.3 · Core concepts",
+      "subtopicChinese": "浮点数的尾数、指数与精度",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/advanced-representation",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "尾数：保存有效数字；在总字长固定时，更多尾数位通常提高精度。 指数：表示二的幂次缩放因子，决定浮点数的可表示范围。 舍入误差：有限位数无法精确保存某些数，存储值只能近似。",
+        "english": "The mantissa holds significant digits; more mantissa bits generally improve precision. The exponent scales the mantissa by a power of two and affects the representable range. Rounding error occurs when a value cannot be represented exactly with the available bits."
+      },
+      "keyTerms": [
+        {
+          "term": "Mantissa",
+          "chineseTerm": "尾数",
+          "abbreviation": "",
+          "chineseExplanation": "保存有效数字；在总字长固定时，更多尾数位通常提高精度。",
+          "examWording": "The mantissa holds significant digits; more mantissa bits generally improve precision."
+        },
+        {
+          "term": "Exponent",
+          "chineseTerm": "指数",
+          "abbreviation": "",
+          "chineseExplanation": "表示二的幂次缩放因子，决定浮点数的可表示范围。",
+          "examWording": "The exponent scales the mantissa by a power of two and affects the representable range."
+        },
+        {
+          "term": "Rounding error",
+          "chineseTerm": "舍入误差",
+          "abbreviation": "",
+          "chineseExplanation": "有限位数无法精确保存某些数，存储值只能近似。",
+          "examWording": "Rounding error occurs when a value cannot be represented exactly with the available bits."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Mantissa",
+          "description": "保存有效数字；在总字长固定时，更多尾数位通常提高精度。"
+        },
+        {
+          "label": "Exponent",
+          "description": "表示二的幂次缩放因子，决定浮点数的可表示范围。"
+        },
+        {
+          "label": "Rounding error",
+          "description": "有限位数无法精确保存某些数，存储值只能近似。"
+        }
+      ],
+      "commonMistakes": [
+        "尾数位数控制有效数字精度；指数位数主要影响范围。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "总字长固定时，增加尾数位主要改善什么？",
+          "question": "With fixed total word length, what do more mantissa bits mainly improve?",
+          "options": [
+            "Precision",
+            "Exponent range",
+            "Network speed"
+          ],
+          "answer": "Precision",
+          "explanationChinese": "尾数位数控制有效数字精度；指数位数主要影响范围。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain the roles of mantissa and exponent and why rounding errors occur. [3]",
+        "markSchemeChinese": [
+          "保存有效数字；在总字长固定时，更多尾数位通常提高精度。",
+          "表示二的幂次缩放因子，决定浮点数的可表示范围。",
+          "有限位数无法精确保存某些数，存储值只能近似。"
+        ],
+        "markScheme": [
+          "The mantissa holds significant digits; more mantissa bits generally improve precision.",
+          "The exponent scales the mantissa by a power of two and affects the representable range.",
+          "Rounding error occurs when a value cannot be represented exactly with the available bits."
+        ],
+        "modelAnswerChinese": "保存有效数字；在总字长固定时，更多尾数位通常提高精度。 表示二的幂次缩放因子，决定浮点数的可表示范围。 有限位数无法精确保存某些数，存储值只能近似。",
+        "modelAnswer": "The mantissa holds significant digits; more mantissa bits generally improve precision. The exponent scales the mantissa by a power of two and affects the representable range. Rounding error occurs when a value cannot be represented exactly with the available bits."
+      },
+      "source": {
+        "chapter": 13,
+        "section": "13.3",
+        "printedPage": 313,
+        "pdfPage": 329
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "internet-technologies",
+      "title": "Communication and Internet Technologies",
+      "titleChinese": "互联网技术",
+      "subtopic": "14.2 · Core concepts",
+      "subtopicChinese": "分组交换与电路交换",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/internet-technologies",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "分组交换：消息被拆为包，各包可独立选择路径。 电路交换：通信期间为双方维持一条专用通路。 路由表：保存转发信息，帮助路由器选择下一跳。",
+        "english": "Packet switching divides a message into packets that can travel independently. Circuit switching maintains a dedicated path for the duration of communication. A routing table provides forwarding information used to choose the next hop."
+      },
+      "keyTerms": [
+        {
+          "term": "Packet switching",
+          "chineseTerm": "分组交换",
+          "abbreviation": "",
+          "chineseExplanation": "消息被拆为包，各包可独立选择路径。",
+          "examWording": "Packet switching divides a message into packets that can travel independently."
+        },
+        {
+          "term": "Circuit switching",
+          "chineseTerm": "电路交换",
+          "abbreviation": "",
+          "chineseExplanation": "通信期间为双方维持一条专用通路。",
+          "examWording": "Circuit switching maintains a dedicated path for the duration of communication."
+        },
+        {
+          "term": "Routing table",
+          "chineseTerm": "路由表",
+          "abbreviation": "",
+          "chineseExplanation": "保存转发信息，帮助路由器选择下一跳。",
+          "examWording": "A routing table provides forwarding information used to choose the next hop."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Packet switching",
+          "description": "消息被拆为包，各包可独立选择路径。"
+        },
+        {
+          "label": "Circuit switching",
+          "description": "通信期间为双方维持一条专用通路。"
+        },
+        {
+          "label": "Routing table",
+          "description": "保存转发信息，帮助路由器选择下一跳。"
+        }
+      ],
+      "commonMistakes": [
+        "分组独立转发，到达顺序可能不同。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "哪种方式允许同一消息的包经不同路径到达？",
+          "question": "Which method allows packets of a message to take different routes?",
+          "options": [
+            "Packet switching",
+            "Circuit switching",
+            "A dedicated circuit only"
+          ],
+          "answer": "Packet switching",
+          "explanationChinese": "分组独立转发，到达顺序可能不同。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain packet switching, circuit switching and the role of a routing table. [3]",
+        "markSchemeChinese": [
+          "消息被拆为包，各包可独立选择路径。",
+          "通信期间为双方维持一条专用通路。",
+          "保存转发信息，帮助路由器选择下一跳。"
+        ],
+        "markScheme": [
+          "Packet switching divides a message into packets that can travel independently.",
+          "Circuit switching maintains a dedicated path for the duration of communication.",
+          "A routing table provides forwarding information used to choose the next hop."
+        ],
+        "modelAnswerChinese": "消息被拆为包，各包可独立选择路径。 通信期间为双方维持一条专用通路。 保存转发信息，帮助路由器选择下一跳。",
+        "modelAnswer": "Packet switching divides a message into packets that can travel independently. Circuit switching maintains a dedicated path for the duration of communication. A routing table provides forwarding information used to choose the next hop."
+      },
+      "source": {
+        "chapter": 14,
+        "section": "14.2",
+        "printedPage": 337,
+        "pdfPage": 353
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "advanced-hardware",
+      "title": "Advanced Hardware",
+      "titleChinese": "高级硬件与逻辑电路",
+      "subtopic": "15.2 · Core concepts",
+      "subtopicChinese": "组合电路、时序电路与半加器",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/advanced-hardware",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "组合电路：输出仅取决于当前输入。 时序电路：输出还取决于以前保存的状态。 半加器：相加两个位，输出 sum 和 carry，不接受前一级进位。",
+        "english": "A combinational circuit produces outputs determined by the current inputs. A sequential circuit depends on its stored state as well as current inputs. A half adder adds two input bits and produces a sum and carry."
+      },
+      "keyTerms": [
+        {
+          "term": "Combinational circuit",
+          "chineseTerm": "组合电路",
+          "abbreviation": "",
+          "chineseExplanation": "输出仅取决于当前输入。",
+          "examWording": "A combinational circuit produces outputs determined by the current inputs."
+        },
+        {
+          "term": "Sequential circuit",
+          "chineseTerm": "时序电路",
+          "abbreviation": "",
+          "chineseExplanation": "输出还取决于以前保存的状态。",
+          "examWording": "A sequential circuit depends on its stored state as well as current inputs."
+        },
+        {
+          "term": "Half adder",
+          "chineseTerm": "半加器",
+          "abbreviation": "",
+          "chineseExplanation": "相加两个位，输出 sum 和 carry，不接受前一级进位。",
+          "examWording": "A half adder adds two input bits and produces a sum and carry."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Combinational circuit",
+          "description": "输出仅取决于当前输入。"
+        },
+        {
+          "label": "Sequential circuit",
+          "description": "输出还取决于以前保存的状态。"
+        },
+        {
+          "label": "Half adder",
+          "description": "相加两个位，输出 sum 和 carry，不接受前一级进位。"
+        }
+      ],
+      "commonMistakes": [
+        "组合电路不依赖历史状态；时序电路有状态。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "哪种电路需要考虑之前保存的状态？",
+          "question": "Which circuit depends on previously stored state?",
+          "options": [
+            "Sequential circuit",
+            "Half adder",
+            "Single AND gate"
+          ],
+          "answer": "Sequential circuit",
+          "explanationChinese": "组合电路不依赖历史状态；时序电路有状态。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Describe combinational circuits, sequential circuits and a half adder. [3]",
+        "markSchemeChinese": [
+          "输出仅取决于当前输入。",
+          "输出还取决于以前保存的状态。",
+          "相加两个位，输出 sum 和 carry，不接受前一级进位。"
+        ],
+        "markScheme": [
+          "A combinational circuit produces outputs determined by the current inputs.",
+          "A sequential circuit depends on its stored state as well as current inputs.",
+          "A half adder adds two input bits and produces a sum and carry."
+        ],
+        "modelAnswerChinese": "输出仅取决于当前输入。 输出还取决于以前保存的状态。 相加两个位，输出 sum 和 carry，不接受前一级进位。",
+        "modelAnswer": "A combinational circuit produces outputs determined by the current inputs. A sequential circuit depends on its stored state as well as current inputs. A half adder adds two input bits and produces a sum and carry."
+      },
+      "source": {
+        "chapter": 15,
+        "section": "15.2",
+        "printedPage": 354,
+        "pdfPage": 370
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "virtual-machines",
+      "title": "System Software and Virtual Machines",
+      "titleChinese": "虚拟机与操作系统",
+      "subtopic": "16.2 · Core concepts",
+      "subtopicChinese": "虚拟机、客户系统与虚拟机管理器",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/virtual-machines",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "虚拟机：提供虚拟计算机环境，使软件在模拟的硬件资源上运行。 客户操作系统：运行在虚拟机中，使用分配给它的虚拟资源。 虚拟机管理器：创建和管理虚拟机，将虚拟资源映射到物理资源。",
+        "english": "A virtual machine provides a virtual computer environment for running software. A guest operating system runs inside a virtual machine. A hypervisor creates and manages virtual machines and their access to physical resources."
+      },
+      "keyTerms": [
+        {
+          "term": "Virtual machine",
+          "chineseTerm": "虚拟机",
+          "abbreviation": "",
+          "chineseExplanation": "提供虚拟计算机环境，使软件在模拟的硬件资源上运行。",
+          "examWording": "A virtual machine provides a virtual computer environment for running software."
+        },
+        {
+          "term": "Guest OS",
+          "chineseTerm": "客户操作系统",
+          "abbreviation": "",
+          "chineseExplanation": "运行在虚拟机中，使用分配给它的虚拟资源。",
+          "examWording": "A guest operating system runs inside a virtual machine."
+        },
+        {
+          "term": "Hypervisor",
+          "chineseTerm": "虚拟机管理器",
+          "abbreviation": "",
+          "chineseExplanation": "创建和管理虚拟机，将虚拟资源映射到物理资源。",
+          "examWording": "A hypervisor creates and manages virtual machines and their access to physical resources."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Virtual machine",
+          "description": "提供虚拟计算机环境，使软件在模拟的硬件资源上运行。"
+        },
+        {
+          "label": "Guest OS",
+          "description": "运行在虚拟机中，使用分配给它的虚拟资源。"
+        },
+        {
+          "label": "Hypervisor",
+          "description": "创建和管理虚拟机，将虚拟资源映射到物理资源。"
+        }
+      ],
+      "commonMistakes": [
+        "Virtual machine 和 virtual memory 不是同一个概念。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "负责创建和管理虚拟机的是哪个？",
+          "question": "Which component creates and manages virtual machines?",
+          "options": [
+            "Hypervisor",
+            "Guest document",
+            "Compiler only"
+          ],
+          "answer": "Hypervisor",
+          "explanationChinese": "Virtual machine 和 virtual memory 不是同一个概念。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain virtual machine, guest OS and hypervisor. [3]",
+        "markSchemeChinese": [
+          "提供虚拟计算机环境，使软件在模拟的硬件资源上运行。",
+          "运行在虚拟机中，使用分配给它的虚拟资源。",
+          "创建和管理虚拟机，将虚拟资源映射到物理资源。"
+        ],
+        "markScheme": [
+          "A virtual machine provides a virtual computer environment for running software.",
+          "A guest operating system runs inside a virtual machine.",
+          "A hypervisor creates and manages virtual machines and their access to physical resources."
+        ],
+        "modelAnswerChinese": "提供虚拟计算机环境，使软件在模拟的硬件资源上运行。 运行在虚拟机中，使用分配给它的虚拟资源。 创建和管理虚拟机，将虚拟资源映射到物理资源。",
+        "modelAnswer": "A virtual machine provides a virtual computer environment for running software. A guest operating system runs inside a virtual machine. A hypervisor creates and manages virtual machines and their access to physical resources."
+      },
+      "source": {
+        "chapter": 16,
+        "section": "16.2",
+        "printedPage": 392,
+        "pdfPage": 408
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "encryption",
+      "title": "Security: Encryption",
+      "titleChinese": "加密与安全",
+      "subtopic": "17.1 · Core concepts",
+      "subtopicChinese": "对称加密与非对称加密",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/encryption",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "对称加密：加密与解密使用同一把保密密钥。 非对称加密：使用数学上相关的公钥与私钥；私钥必须保密。 密钥分发：共享对称密钥时必须避免被未授权者获取。",
+        "english": "Symmetric encryption uses the same secret key for encryption and decryption. Asymmetric encryption uses a related public and private key pair. Secret-key distribution must prevent unauthorised parties from obtaining the key."
+      },
+      "keyTerms": [
+        {
+          "term": "Symmetric encryption",
+          "chineseTerm": "对称加密",
+          "abbreviation": "",
+          "chineseExplanation": "加密与解密使用同一把保密密钥。",
+          "examWording": "Symmetric encryption uses the same secret key for encryption and decryption."
+        },
+        {
+          "term": "Asymmetric encryption",
+          "chineseTerm": "非对称加密",
+          "abbreviation": "",
+          "chineseExplanation": "使用数学上相关的公钥与私钥；私钥必须保密。",
+          "examWording": "Asymmetric encryption uses a related public and private key pair."
+        },
+        {
+          "term": "Key distribution",
+          "chineseTerm": "密钥分发",
+          "abbreviation": "",
+          "chineseExplanation": "共享对称密钥时必须避免被未授权者获取。",
+          "examWording": "Secret-key distribution must prevent unauthorised parties from obtaining the key."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Symmetric encryption",
+          "description": "加密与解密使用同一把保密密钥。"
+        },
+        {
+          "label": "Asymmetric encryption",
+          "description": "使用数学上相关的公钥与私钥；私钥必须保密。"
+        },
+        {
+          "label": "Key distribution",
+          "description": "共享对称密钥时必须避免被未授权者获取。"
+        }
+      ],
+      "commonMistakes": [
+        "使用接收者 Bob 的公钥加密，由 Bob 使用自己的私钥解密。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "发送保密消息给 Bob，公钥加密模型中应该使用谁的公钥？",
+          "question": "To send Bob a confidential message with public-key encryption, whose public key is used?",
+          "options": [
+            "Bob’s",
+            "The sender’s",
+            "No key"
+          ],
+          "answer": "Bob’s",
+          "explanationChinese": "使用接收者 Bob 的公钥加密，由 Bob 使用自己的私钥解密。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain symmetric encryption, asymmetric encryption and the secret-key distribution problem. [3]",
+        "markSchemeChinese": [
+          "加密与解密使用同一把保密密钥。",
+          "使用数学上相关的公钥与私钥；私钥必须保密。",
+          "共享对称密钥时必须避免被未授权者获取。"
+        ],
+        "markScheme": [
+          "Symmetric encryption uses the same secret key for encryption and decryption.",
+          "Asymmetric encryption uses a related public and private key pair.",
+          "Secret-key distribution must prevent unauthorised parties from obtaining the key."
+        ],
+        "modelAnswerChinese": "加密与解密使用同一把保密密钥。 使用数学上相关的公钥与私钥；私钥必须保密。 共享对称密钥时必须避免被未授权者获取。",
+        "modelAnswer": "Symmetric encryption uses the same secret key for encryption and decryption. Asymmetric encryption uses a related public and private key pair. Secret-key distribution must prevent unauthorised parties from obtaining the key."
+      },
+      "source": {
+        "chapter": 17,
+        "section": "17.1",
+        "printedPage": 410,
+        "pdfPage": 426
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "artificial-intelligence",
+      "title": "Artificial Intelligence",
+      "titleChinese": "人工智能",
+      "subtopic": "18.2 · Core concepts",
+      "subtopicChinese": "监督、无监督与强化学习",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/artificial-intelligence",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "监督学习：从带标签的输入及目标输出样例学习映射。 无监督学习：从未提供目标标签的数据中发现结构或模式。 强化学习：智能体根据行动后获得的奖励学习策略。",
+        "english": "Supervised learning uses labelled examples containing inputs and target outputs. Unsupervised learning finds patterns in data without supplied target labels. Reinforcement learning uses rewards from actions to improve a policy."
+      },
+      "keyTerms": [
+        {
+          "term": "Supervised learning",
+          "chineseTerm": "监督学习",
+          "abbreviation": "",
+          "chineseExplanation": "从带标签的输入及目标输出样例学习映射。",
+          "examWording": "Supervised learning uses labelled examples containing inputs and target outputs."
+        },
+        {
+          "term": "Unsupervised learning",
+          "chineseTerm": "无监督学习",
+          "abbreviation": "",
+          "chineseExplanation": "从未提供目标标签的数据中发现结构或模式。",
+          "examWording": "Unsupervised learning finds patterns in data without supplied target labels."
+        },
+        {
+          "term": "Reinforcement learning",
+          "chineseTerm": "强化学习",
+          "abbreviation": "",
+          "chineseExplanation": "智能体根据行动后获得的奖励学习策略。",
+          "examWording": "Reinforcement learning uses rewards from actions to improve a policy."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Supervised learning",
+          "description": "从带标签的输入及目标输出样例学习映射。"
+        },
+        {
+          "label": "Unsupervised learning",
+          "description": "从未提供目标标签的数据中发现结构或模式。"
+        },
+        {
+          "label": "Reinforcement learning",
+          "description": "智能体根据行动后获得的奖励学习策略。"
+        }
+      ],
+      "commonMistakes": [
+        "训练数据包含已知目标标签。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "用已标注猫或狗的图片训练分类器属于什么？",
+          "question": "Training a classifier on images labelled cat or dog is which approach?",
+          "options": [
+            "Supervised learning",
+            "Unsupervised learning",
+            "No learning"
+          ],
+          "answer": "Supervised learning",
+          "explanationChinese": "训练数据包含已知目标标签。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Compare supervised, unsupervised and reinforcement learning. [3]",
+        "markSchemeChinese": [
+          "从带标签的输入及目标输出样例学习映射。",
+          "从未提供目标标签的数据中发现结构或模式。",
+          "智能体根据行动后获得的奖励学习策略。"
+        ],
+        "markScheme": [
+          "Supervised learning uses labelled examples containing inputs and target outputs.",
+          "Unsupervised learning finds patterns in data without supplied target labels.",
+          "Reinforcement learning uses rewards from actions to improve a policy."
+        ],
+        "modelAnswerChinese": "从带标签的输入及目标输出样例学习映射。 从未提供目标标签的数据中发现结构或模式。 智能体根据行动后获得的奖励学习策略。",
+        "modelAnswer": "Supervised learning uses labelled examples containing inputs and target outputs. Unsupervised learning finds patterns in data without supplied target labels. Reinforcement learning uses rewards from actions to improve a policy."
+      },
+      "source": {
+        "chapter": 18,
+        "section": "18.2",
+        "printedPage": 434,
+        "pdfPage": 450
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "recursion",
+      "title": "Computational Thinking: Recursion",
+      "titleChinese": "递归与问题求解",
+      "subtopic": "19.2 · Core concepts",
+      "subtopicChinese": "基本情况、递归调用与回溯",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/recursion",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "递归：函数或过程调用自身来解决规模更小的同类问题。 基本情况：无需继续递归即可直接得到结果的终止情况。 递归返回：到达基本情况后，返回值逐层传回先前的调用。",
+        "english": "Recursion solves a problem through calls to the same routine on smaller subproblems. A base case provides a result without another recursive call. Unwinding returns results through the earlier calls after the base case is reached."
+      },
+      "keyTerms": [
+        {
+          "term": "Recursion",
+          "chineseTerm": "递归",
+          "abbreviation": "",
+          "chineseExplanation": "函数或过程调用自身来解决规模更小的同类问题。",
+          "examWording": "Recursion solves a problem through calls to the same routine on smaller subproblems."
+        },
+        {
+          "term": "Base case",
+          "chineseTerm": "基本情况",
+          "abbreviation": "",
+          "chineseExplanation": "无需继续递归即可直接得到结果的终止情况。",
+          "examWording": "A base case provides a result without another recursive call."
+        },
+        {
+          "term": "Unwinding",
+          "chineseTerm": "递归返回",
+          "abbreviation": "",
+          "chineseExplanation": "到达基本情况后，返回值逐层传回先前的调用。",
+          "examWording": "Unwinding returns results through the earlier calls after the base case is reached."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Recursion",
+          "description": "函数或过程调用自身来解决规模更小的同类问题。"
+        },
+        {
+          "label": "Base case",
+          "description": "无需继续递归即可直接得到结果的终止情况。"
+        },
+        {
+          "label": "Unwinding",
+          "description": "到达基本情况后，返回值逐层传回先前的调用。"
+        }
+      ],
+      "commonMistakes": [
+        "factorial(n)=n×factorial(n−1) 是递归步骤，0! 是终止条件。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "factorial(0)=1 在递归阶乘中是什么？",
+          "question": "What is factorial(0)=1 in a recursive factorial definition?",
+          "options": [
+            "Base case",
+            "Infinite loop",
+            "Recursive step"
+          ],
+          "answer": "Base case",
+          "explanationChinese": "factorial(n)=n×factorial(n−1) 是递归步骤，0! 是终止条件。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain recursion, the base case and unwinding using factorial. [3]",
+        "markSchemeChinese": [
+          "函数或过程调用自身来解决规模更小的同类问题。",
+          "无需继续递归即可直接得到结果的终止情况。",
+          "到达基本情况后，返回值逐层传回先前的调用。"
+        ],
+        "markScheme": [
+          "Recursion solves a problem through calls to the same routine on smaller subproblems.",
+          "A base case provides a result without another recursive call.",
+          "Unwinding returns results through the earlier calls after the base case is reached."
+        ],
+        "modelAnswerChinese": "函数或过程调用自身来解决规模更小的同类问题。 无需继续递归即可直接得到结果的终止情况。 到达基本情况后，返回值逐层传回先前的调用。",
+        "modelAnswer": "Recursion solves a problem through calls to the same routine on smaller subproblems. A base case provides a result without another recursive call. Unwinding returns results through the earlier calls after the base case is reached."
+      },
+      "source": {
+        "chapter": 19,
+        "section": "19.2",
+        "printedPage": 490,
+        "pdfPage": 506
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
+    },
+    {
+      "id": "further-programming",
+      "title": "Further Programming",
+      "titleChinese": "面向对象与进阶编程",
+      "subtopic": "20.1 · Core concepts",
+      "subtopicChinese": "类、对象与封装",
+      "status": "Available",
+      "statusChinese": "可学习",
+      "href": "/revision/further-programming",
+      "visual": "concept-steps",
+      "summary": {
+        "chinese": "类：定义一类对象拥有的数据与方法的模板。 对象：程序执行时由类创建的一个实例。 封装：把数据与相关方法放在类中，配合访问控制保护内部状态。",
+        "english": "A class defines the attributes and methods for a kind of object. An object is an instance of a class. Encapsulation groups data with related methods and controls access to internal state."
+      },
+      "keyTerms": [
+        {
+          "term": "Class",
+          "chineseTerm": "类",
+          "abbreviation": "",
+          "chineseExplanation": "定义一类对象拥有的数据与方法的模板。",
+          "examWording": "A class defines the attributes and methods for a kind of object."
+        },
+        {
+          "term": "Object",
+          "chineseTerm": "对象",
+          "abbreviation": "",
+          "chineseExplanation": "程序执行时由类创建的一个实例。",
+          "examWording": "An object is an instance of a class."
+        },
+        {
+          "term": "Encapsulation",
+          "chineseTerm": "封装",
+          "abbreviation": "",
+          "chineseExplanation": "把数据与相关方法放在类中，配合访问控制保护内部状态。",
+          "examWording": "Encapsulation groups data with related methods and controls access to internal state."
+        }
+      ],
+      "flowchart": [
+        {
+          "label": "Class",
+          "description": "定义一类对象拥有的数据与方法的模板。"
+        },
+        {
+          "label": "Object",
+          "description": "程序执行时由类创建的一个实例。"
+        },
+        {
+          "label": "Encapsulation",
+          "description": "把数据与相关方法放在类中，配合访问控制保护内部状态。"
+        }
+      ],
+      "commonMistakes": [
+        "Class 是模板；Object 是实例。",
+        "不要只列出术语；答案中要说明作用或区别，并结合题目情境。"
+      ],
+      "quiz": [
+        {
+          "questionChinese": "由 Student 类创建的某个具体学生实例是什么？",
+          "question": "What is a particular student instance created from a Student class?",
+          "options": [
+            "Object",
+            "Compiler",
+            "Protocol"
+          ],
+          "answer": "Object",
+          "explanationChinese": "Class 是模板；Object 是实例。"
+        }
+      ],
+      "practice": {
+        "hintChinese": "逐点解释题目中的三个概念，每点一分；可用具体例子辅助说明。",
+        "question": "Explain class, object and encapsulation using a Student example. [3]",
+        "markSchemeChinese": [
+          "定义一类对象拥有的数据与方法的模板。",
+          "程序执行时由类创建的一个实例。",
+          "把数据与相关方法放在类中，配合访问控制保护内部状态。"
+        ],
+        "markScheme": [
+          "A class defines the attributes and methods for a kind of object.",
+          "An object is an instance of a class.",
+          "Encapsulation groups data with related methods and controls access to internal state."
+        ],
+        "modelAnswerChinese": "定义一类对象拥有的数据与方法的模板。 程序执行时由类创建的一个实例。 把数据与相关方法放在类中，配合访问控制保护内部状态。",
+        "modelAnswer": "A class defines the attributes and methods for a kind of object. An object is an instance of a class. Encapsulation groups data with related methods and controls access to internal state."
+      },
+      "source": {
+        "chapter": 20,
+        "section": "20.1",
+        "printedPage": 498,
+        "pdfPage": 514
+      },
+      "level": "A Level",
+      "coverage": "核心小节；不是本章全部考点",
+      "sectionTitles": {
+        "visual": "逐个概念学习与比较",
+        "terms": "核心术语与英文表达",
+        "overview": "概念对照总览",
+        "quiz": "把概念应用到情境中",
+        "practice": "独立作答，再对照评分点自评"
+      }
     }
-  ]
+  ],
+  "textbook": {
+    "title": "Cambridge International AS & A Level Computer Science",
+    "authors": "David Watson & Helen Williams",
+    "publisher": "Hodder Education",
+    "year": 2019,
+    "isbn": "9781510457591",
+    "providedFilename": "9618 CS Textbook 2020.pdf",
+    "note": "按用户提供教材改写的核心复习内容。练习与评分点为本站编写，不是 Cambridge 官方真题或评分标准。"
+  }
 }

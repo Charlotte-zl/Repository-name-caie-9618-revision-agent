@@ -1,6 +1,6 @@
 import Link from "next/link";
-import TopicCard from "@/components/TopicCard";
-import course from "@/data/caie9618.json";
+import TopicBrowser from "@/components/TopicBrowser";
+
 
 export default function TopicsPage() {
   return (
@@ -15,8 +15,7 @@ export default function TopicsPage() {
               选择一个复习主题
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-              先从已开放的 Processor Fundamentals 开始。其他 CAIE 9618
-              主题暂时显示为即将推出。
+              按教材 20 章组织核心复习主题：中文讲解、英文术语、交互演示、测验与简答自评。每个主题标明实际覆盖的小节。
             </p>
           </div>
           <Link
@@ -27,11 +26,8 @@ export default function TopicsPage() {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {course.topics.map((topic) => (
-            <TopicCard key={topic.id} topic={topic} />
-          ))}
-        </div>
+        <Link href="/progress" className="mt-6 inline-block font-semibold text-emerald-700 underline">查看学习记录与错题 →</Link>
+        <TopicBrowser />
       </section>
     </main>
   );

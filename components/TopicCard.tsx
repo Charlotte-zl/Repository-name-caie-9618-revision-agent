@@ -3,6 +3,8 @@ import Link from "next/link";
 type TopicCardProps = {
   topic: {
     title: string;
+    level?: string;
+    source?: { chapter: number };
     titleChinese?: string;
     subtopic?: string;
     subtopicChinese?: string;
@@ -48,6 +50,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
           {topic.statusChinese ?? topic.status}
         </span>
       </div>
+      <p className="mt-3 text-xs text-slate-500">{topic.level} · 教材第 {topic.source?.chapter} 章 · 核心小节</p>
       <div className="mt-5 text-sm font-semibold text-emerald-700">
         {isAvailable ? "开始复习 / Open revision" : "内容规划中 / Planned"}
       </div>

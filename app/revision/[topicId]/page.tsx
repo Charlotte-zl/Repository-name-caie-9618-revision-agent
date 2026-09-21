@@ -1,62 +1,31 @@
 import Link from "next/link";
-import AnimatedFetchCycle from "@/components/AnimatedFetchCycle";
+import ConceptSteps from "@/components/ConceptSteps";
+import LessonStatus from "@/components/LessonStatus";
+import course from "@/data/caie9618.json";
+import { notFound } from "next/navigation";
 import Flowchart from "@/components/Flowchart";
 import KeyTermCard from "@/components/KeyTermCard";
 import PracticeSection from "@/components/PracticeSection";
 import QuizCard from "@/components/QuizCard";
-import course from "@/data/caie9618.json";
+import TopicVisual from "@/components/TopicVisual";
+import { getAvailableTopics, getRevisionTopic } from "@/lib/course";
 
-type RevisionTopic = {
-  id: string;
-  title: string;
-  titleChinese: string;
-  subtopic: string;
-  subtopicChinese: string;
-  summary: {
-    chinese: string;
-    english: string;
-  };
-  keyTerms: Array<{
-    term: string;
-    abbreviation?: string;
-    chineseTerm: string;
-    chineseExplanation: string;
-    examWording: string;
-  }>;
-  flowchart: Array<{
-    label: string;
-    description: string;
-  }>;
-  commonMistakes: string[];
-  quiz: Array<{
-    questionChinese: string;
-    question: string;
-    options: string[];
-    answer: string;
-    explanationChinese: string;
-    explanation?: string;
-  }>;
-  practice: {
-    hintChinese: string;
-    question: string;
-    markSchemeChinese: string[];
-    markScheme: string[];
-    mockResult: {
-      markAwarded: string;
-      awarded: string[];
-      notAwarded: string[];
-      commonMistake: string;
-      modelAnswerChinese: string;
-      modelAnswer: string;
-    };
-  };
+type RevisionPageProps = {
+  params: Promise<{ topicId: string }>;
 };
 
-const topic = course.topics.find(
-  (item) => item.id === "processor-fundamentals",
-) as RevisionTopic;
+export function generateStaticParams() {
+  return getAvailableTopics().map((topic) => ({ topicId: topic.id }));
+}
 
-export default function ProcessorFundamentalsPage() {
+export default async function RevisionPage({ params }: RevisionPageProps) {
+  const { topicId } = await params;
+  const topic = getRevisionTopic(topicId);
+
+  if (!topic) {
+    notFound();
+  }
+
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="border-b border-slate-200 bg-white">
@@ -97,9 +66,9 @@ export default function ProcessorFundamentalsPage() {
               </p>
               <ol className="mt-3 space-y-2 text-sm leading-6 text-emerald-800">
                 <li>1. 先用中文理解核心过程</li>
-                <li>2. 记住寄存器的英文 exam wording</li>
-                <li>3. 跟随动态过程图逐步 trace</li>
-                <li>4. 用 mark scheme 检查英文答案</li>
+                <li>2. 记住英文 exam wording</li>
+                <li>3. 跟随交互讲解核对概念</li>
+                <li>4. 用评分点自评英文答案</li>
               </ol>
             </div>
           </div>
@@ -107,16 +76,23 @@ export default function ProcessorFundamentalsPage() {
       </section>
 
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-8">
+        <aside className="rounded-lg border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-600">
+          <p className="font-semibold text-slate-900">教材参考 · {topic.level} · 第 {topic.source.chapter} 章</p>
+          <p>{course.textbook.title} — {course.textbook.authors} ({course.textbook.year})</p>
+          <p>小节 {topic.source.section} · 起始印刷页 {topic.source.printedPage} / PDF 页 {topic.source.pdfPage}</p>
+          <p>{topic.coverage}。{course.textbook.note}</p>
+        </aside>
+        <LessonStatus topicId={topic.id} />
         <section>
           <div className="mb-4">
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-              动态过程图解 / Animated Step-by-Step Explanation
+              交互讲解 / Interactive explanation
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-950">
-              跟着 CPU 的数据流一步一步看 fetch-execute cycle
+              {topic.sectionTitles?.visual ?? "跟着过程一步一步看"}
             </h2>
           </div>
-          <AnimatedFetchCycle />
+          {topic.visual === "concept-steps" ? <ConceptSteps key={topic.id} steps={topic.flowchart} /> : <TopicVisual kind={topic.visual} />}
         </section>
 
         <section>
@@ -125,7 +101,7 @@ export default function ProcessorFundamentalsPage() {
               核心术语 / Key terms
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-950">
-              先记中文含义，再背英文得分句
+              {topic.sectionTitles?.terms ?? "先记中文含义，再背英文得分句"}
             </h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -141,13 +117,13 @@ export default function ProcessorFundamentalsPage() {
               快速总览 / Quick overview
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-950">
-              静态流程：PC 到 Execute
+              {topic.sectionTitles?.overview ?? "静态流程总览"}
             </h2>
           </div>
-          <Flowchart steps={topic.flowchart} />
+          <Flowchart steps={topic.flowchart} connected={topic.visual !== "concept-steps"} />
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[360px_1fr]">
+        <section id="quiz" className="grid gap-6 lg:grid-cols-[360px_1fr]">
           <div className="rounded-lg border border-rose-100 bg-white p-5 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-wide text-rose-700">
               常见误区 / Common mistakes
@@ -173,23 +149,23 @@ export default function ProcessorFundamentalsPage() {
                 快速测验 / Quick quiz
               </p>
               <h2 className="mt-1 text-2xl font-semibold text-slate-950">
-                检查寄存器角色是否分清
+                {topic.sectionTitles?.quiz ?? "检查核心概念是否分清"}
               </h2>
             </div>
-            <QuizCard questions={topic.quiz} />
+            <QuizCard key={topic.id} topicId={topic.id} questions={topic.quiz} />
           </div>
         </section>
 
-        <section>
+        <section id="practice">
           <div className="mb-4">
             <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-              练习与批改 / Practice and marking
+              练习与自评 / Practice and self-assessment
             </p>
             <h2 className="mt-1 text-2xl font-semibold text-slate-950">
-              用中文拆题，再写英文得分句
+              {topic.sectionTitles?.practice ?? "用中文拆题，再写英文得分句"}
             </h2>
           </div>
-          <PracticeSection practice={topic.practice} />
+          <PracticeSection key={topic.id} topicId={topic.id} practice={topic.practice} />
         </section>
       </div>
     </main>

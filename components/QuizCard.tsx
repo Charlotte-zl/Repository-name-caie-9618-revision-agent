@@ -1,86 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import { saveLesson, useLesson } from "@/lib/progress";
 
-type QuizQuestion = {
-  questionChinese: string;
-  question: string;
-  options: string[];
-  answer: string;
-  explanationChinese: string;
-  explanation?: string;
-};
-
-type QuizCardProps = {
-  questions: QuizQuestion[];
-};
-
-export default function QuizCard({ questions }: QuizCardProps) {
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-
-  return (
-    <div className="space-y-4">
-      {questions.map((question, questionIndex) => {
-        const selected = answers[questionIndex];
-        const isAnswered = Boolean(selected);
-        const isCorrect = selected === question.answer;
-
-        return (
-          <article
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
-            key={question.question}
-          >
-            <h3 className="font-semibold text-slate-950">
-              第 {questionIndex + 1} 题 / Question {questionIndex + 1}
-            </h3>
-            <p className="mt-2 text-base leading-7 text-slate-800">
-              {question.questionChinese}
-            </p>
-            <p className="mt-1 text-sm leading-6 text-slate-600">
-              {question.question}
-            </p>
-            <div className="mt-4 grid gap-2 sm:grid-cols-2">
-              {question.options.map((option) => (
-                <button
-                  className={
-                    selected === option
-                      ? "rounded-md border border-emerald-500 bg-emerald-50 px-3 py-2 text-left text-sm font-semibold text-emerald-800"
-                      : "rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-left text-sm font-semibold text-slate-700 transition hover:border-emerald-300 hover:bg-white"
-                  }
-                  key={option}
-                  onClick={() =>
-                    setAnswers((current) => ({
-                      ...current,
-                      [questionIndex]: option,
-                    }))
-                  }
-                  type="button"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            {isAnswered ? (
-              <div
-                className={
-                  isCorrect
-                    ? "mt-4 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800"
-                    : "mt-4 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800"
-                }
-              >
-                <p className="font-semibold">
-                  {isCorrect ? "正确 / Correct" : "再想想 / Try again"}
-                </p>
-                <p className="mt-1">答案 / Answer: {question.answer}</p>
-                <p className="mt-2">{question.explanationChinese}</p>
-                {question.explanation ? (
-                  <p className="mt-1 text-slate-600">{question.explanation}</p>
-                ) : null}
-              </div>
-            ) : null}
-          </article>
-        );
-      })}
-    </div>
-  );
+type Question = { questionChinese: string; question: string; options: string[]; answer: string; explanationChinese: string; explanation?: string };
+export default function QuizCard({ questions, topicId }: { questions: Question[]; topicId: string }) {
+  const { progress, unavailable } = useLesson(topicId);
+  const [retry, setRetry] = useState<Record<string, boolean>>({});
+  return <div className="space-y-4">
+    {unavailable && <p role="status">浏览器存储不可用，测验记录仅在当前页面会话中保留。</p>}
+    {questions.map((q, i) => {
+      const selected = retry[q.question] ? undefined : progress.answers[q.question];
+      const correct = selected === q.answer;
+      return <article className="rounded-lg border border-slate-200 bg-white p-5" key={q.question}>
+        <h3 className="font-semibold">第 {i + 1} 题 · {q.questionChinese}</h3>
+        <p className="mt-2 text-sm text-slate-600">{q.question}</p>
+        <div className="mt-4 grid gap-2 sm:grid-cols-2">{q.options.map(option => <button type="button" key={option}
+          disabled={!!selected} aria-pressed={selected === option}
+          className={`rounded-md border px-3 py-3 text-left text-sm disabled:cursor-default ${selected === option ? (correct ? "border-emerald-600 bg-emerald-50" : "border-rose-600 bg-rose-50") : "border-slate-200 hover:border-emerald-500"}`}
+          onClick={() => {
+            saveLesson(topicId, { answers: { ...progress.answers, [q.question]: option }, mistakes: { ...progress.mistakes, [q.question]: option !== q.answer } });
+            setRetry(current => ({ ...current, [q.question]: false }));
+          }}>{option}</button>)}</div>
+        {selected && <div aria-live="polite" className={`mt-4 rounded-md p-4 ${correct ? "bg-emerald-50" : "bg-rose-50"}`}>
+          <p className="font-semibold">{correct ? "正确 / Correct" : "已加入待复习 / Review needed"}</p>
+          <p className="mt-2">答案：{q.answer}</p><p className="mt-2">{q.explanationChinese}</p>
+          {q.explanation && <p className="mt-2 text-sm">{q.explanation}</p>}
+          <button type="button" className="mt-3 font-semibold underline" onClick={() => setRetry(current => ({ ...current, [q.question]: true }))}>重新作答</button>
+        </div>}
+      </article>;
+    })}
+  </div>;
 }
